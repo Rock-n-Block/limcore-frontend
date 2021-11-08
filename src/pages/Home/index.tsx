@@ -1,11 +1,15 @@
 import React from 'react';
 
-import './Home.scss'
+import { Button } from 'components';
+
+import styles from './Home.module.scss';
 
 const Home: React.FC = () => {
   return (
-    <div className="home">home</div>
+    <div className={styles.home}>
+      <Button />
+    </div>
   );
-}
+};
 
 export default Home;

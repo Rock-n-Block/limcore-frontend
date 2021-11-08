@@ -1,11 +1,9 @@
 import React from 'react';
 
-import './Button.scss'
+import styles from './Button.module.scss';
 
 const Button: React.FC = () => {
-  return (
-    <button>123</button>
-  );
-}
+  return <button className={styles.btn}>123</button>;
+};
 
 export default Button;
