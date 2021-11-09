@@ -1,3 +1,5 @@
+@import 'styles/mixins/main';
+
 // $font-size-1: 60px;
 // $font-size-2: 44px;
 // $font-size-3: 32px;
@@ -10,10 +12,41 @@
 // $font-size-9: 12px;
 
 $font-size-14: 14px;
-
 $line-height-14: 22px;
 
 .text {
+  &_14 {
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+  }
+}
+
+
+h1,
+.h1 {
+  font-size: 46px;
+  line-height: 64px;
+
+  @include b('mobile') {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+
+h2,
+.h2 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+h3,
+.h3 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.text {
+  // Text Weights
   &_light {
     font-weight: 300;
   }
@@ -34,8 +67,19 @@ $line-height-14: 22px;
     font-weight: 700;
   }
 
-  &_14 {
+  // Text Colors
+  &_blue {
+    color: $accent-neutral;
+  }
+
+  // Text Sizes
+  &_sm {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  &_md {
     font-size: $font-size-14;
-    line-height: $line-height-14;
+    line-height: 20px;
   }
 }

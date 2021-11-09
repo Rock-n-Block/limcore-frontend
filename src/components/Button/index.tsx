@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import cn from 'classnames';
 import Icon from 'components/Icon';
 
-import styles from './button.module.scss';
+import styles from './Button.module.scss';
 
 type IButtonSchemaColor = 'primary';
 interface IButtonProps {
