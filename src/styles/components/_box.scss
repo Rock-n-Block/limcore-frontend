@@ -1,12 +1,15 @@
 .box {
-  border: 1px solid $lightgrey-1;
-  box-shadow: $box-shadow;
-  border-radius: 14px;
   padding: 40px 30px;
+
   background: $white;
+  border: 1px solid $lightgrey-1;
+  border-radius: 14px;
+  box-shadow: $box-shadow;
+
   & + & {
     margin-top: 15px;
   }
+
   &_main {
     @extend .box;
     padding: 40px 70px 30px;

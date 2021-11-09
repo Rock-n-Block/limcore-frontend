@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
 
 import { MainPage } from 'pages';
 
@@ -9,9 +8,7 @@ export const App: React.FC = () => {
   return (
     <div className="app">
       <div className="content">
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-        </Routes>
+        <MainPage />
       </div>
     </div>
   );

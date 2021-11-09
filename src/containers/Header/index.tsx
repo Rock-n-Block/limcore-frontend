@@ -1,6 +1,5 @@
-// import { Button } from 'components';
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import { LogoSvg } from 'assets/img/icons';
 import ChangeLanguage from 'components/ChangeLanguage';
 import ConnectWalletButton from 'components/ConnectWalletButton';
@@ -17,9 +16,9 @@ const Header: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.leftBlock}>
           {isPrevious && <BackButton className={styles.backButton} />}
-          <Link to="/">
+          <a href="/">
             <Icon>{LogoSvg}</Icon>
-          </Link>
+          </a>
         </div>
 
         <div className={styles.rightBlock}>

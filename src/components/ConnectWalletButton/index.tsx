@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import shieldIcon from 'assets/img/icons/shield.svg';
 import { Button } from 'components';
 import { addressShortener } from 'utils/formatters';

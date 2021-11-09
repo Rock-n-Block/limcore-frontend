@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from 'react';
 
 import { is_production } from 'config';
+
 import { WalletConnect } from '..';
 
 declare global {

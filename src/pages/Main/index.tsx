@@ -1,8 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import Header from 'containers/Header';
 
-import { Preview, CurrentRound, CurrentPrice } from 'containers';
+import { CurrentPrice, CurrentRound, Preview } from 'containers';
+import Header from 'containers/Header';
 
 import style from './main.module.scss';
 

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
+import Dropdown from 'rc-dropdown/lib';
+import Menu, { Item as MenuItem } from 'rc-menu/lib';
+
 import { ArrowVerticalSvg } from 'assets/img/icons';
 import ruIcon from 'assets/img/icons/countries/russia.svg';
 import enIcon from 'assets/img/icons/countries/uk.svg';
-import cn from 'classnames';
 import { Button, Icon } from 'components';
-import Dropdown from 'rc-dropdown/lib';
-import Menu, { Item as MenuItem } from 'rc-menu/lib';
 import { OptionalClassNameProp } from 'typings';
 
 import 'rc-dropdown/assets/index.css';

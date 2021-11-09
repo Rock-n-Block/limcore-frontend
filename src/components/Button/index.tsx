@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import cn from 'classnames';
+
 import Icon from 'components/Icon';
 
 import styles from './Button.module.scss';

@@ -12,12 +12,8 @@ $header-height: 70px;
 
   padding: 0 60px;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
   height: $header-height;
+  @include flexbox(center, space-between);
 
   @include b(tablet) {
     padding: 0 10px;
@@ -27,31 +23,20 @@ $header-height: 70px;
 }
 
 .leftBlock {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
+  @include flexbox(center, space-between);
   @include b(tablet) {
     width: 100%;
   }
 }
 
 .rightBlock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox();
   gap: 20px;
 
   @include b(tablet) {
     position: fixed;
     top: $header-height + 20px;
-
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-
+    @include flexbox(center, center, row-reverse);
     width: 100%;
   }
 }

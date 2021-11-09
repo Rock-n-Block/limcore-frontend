@@ -1,4 +1,19 @@
 const prettierConfig = require('./.prettierrc.js');
+
+const baseDir = './src';
+const aliasPaths = [
+  'assets',
+  'components',
+  'config',
+  'containers',
+  'pages',
+  'store',
+  'styles',
+  'typings',
+  'utils',
+  'services',
+];
+
 module.exports = {
   env: {
     browser: true,
@@ -117,6 +132,7 @@ module.exports = {
             '^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)',
           ],
           ['^react', '^@?\\w'],
+          aliasPaths,
           ['^\\u0000'],
           ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
           ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
@@ -148,16 +164,9 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
-          ['assets', './src/assets'],
-          ['components', './src/components'],
-          ['config', './src/config'],
-          ['containers', './src/containers'],
-          ['pages', './src/pages'],
-          ['store', './src/store'],
-          ['styles', './src/styles'],
-          ['typings', './src/typings'],
-          ['utils', './src/utils'],
-          ['services', './src/services'],
+          ...aliasPaths.map((alias) => {
+            return [alias, `${baseDir}/${alias}`];
+          }),
           './node_modules/',
         ],
         extensions: ['.ts', '.tsx', '.json', 'js', 'jsx'],

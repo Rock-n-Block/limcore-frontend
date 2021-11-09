@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+
 import arrowLeftIcon from 'assets/img/icons/arrow_left.svg';
 import { Button } from 'components';
 import { OptionalClassNameProp } from 'typings';
@@ -12,7 +12,7 @@ type IBackButtonProps = OptionalClassNameProp;
 const BackButton: React.FC<IBackButtonProps> = ({ className }) => {
   const { t } = useTranslation();
   return (
-    <Link to="/">
+    <a href="/">
       <Button
         outline
         prefix={arrowLeftIcon}
@@ -20,7 +20,7 @@ const BackButton: React.FC<IBackButtonProps> = ({ className }) => {
       >
         {t('back')}
       </Button>
-    </Link>
+    </a>
   );
 };
 
