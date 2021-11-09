@@ -6,18 +6,29 @@ import { Button } from 'components';
 import { addressShortener } from 'utils/formatters';
 
 import styles from './connect-wallet-button.module.scss';
+import { useWalletConnectorContext } from 'services';
 
-const ConnectWalletButton: React.FC = () => {
+type IConnectWalletButtonProps = {
+  userAddress?: string;
+} & React.ComponentProps<typeof Button>;
+
+const ConnectWalletButton: React.FC<IConnectWalletButtonProps> = ({
+  userAddress = '',
+  onClick,
+  ...props
+}) => {
+  const { address, connect } = useWalletConnectorContext();
   const { t } = useTranslation();
 
-  const userAddress = '0x51dF960Fb5BBd528cc7A8d7Ac9F124F055E50552';
-  const hasConnectedWallet = Boolean(userAddress);
+  const hasConnectedWallet = Boolean(address);
 
   return (
     <Button
       outline
       prefix={shieldIcon}
       customClassNames={{ button: styles.button, prefix: styles.icon }}
+      onClick={hasConnectedWallet ? onClick : connect}
+      {...props}
     >
       {hasConnectedWallet ? addressShortener(userAddress) : t('connect trust wallet')}
     </Button>

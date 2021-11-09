@@ -71,6 +71,10 @@ h3,
     color: $accent-neutral;
   }
 
+  &_white {
+    color: $white;
+  }
+
   // Text Sizes
   &_sm {
     font-size: 13px;
@@ -80,5 +84,14 @@ h3,
   &_md {
     font-size: $font-size-14;
     line-height: 20px;
+  }
+
+  // Miscellaneous
+  &_center {
+    text-align: center;
+  }
+
+  &_upper {
+    text-transform: uppercase;
   }
 }

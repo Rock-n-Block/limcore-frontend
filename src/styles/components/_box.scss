@@ -1,17 +1,29 @@
 .box {
   padding: 40px 30px;
 
+  width: 100%;
+
+  background: $white;
   background: $white;
   border: 1px solid $lightgrey-1;
   border-radius: 14px;
   box-shadow: $box-shadow;
+  @include b('mobile') {
+    padding: 20px;
+  }
 
   & + & {
     margin-top: 15px;
+    @include b('mobile') {
+      margin-top: 10px;
+    }
   }
 
   &_main {
     @extend .box;
     padding: 40px 70px 30px;
+    @include b('mobile') {
+      padding: 20px 10px;
+    }
   }
 }

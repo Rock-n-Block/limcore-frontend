@@ -23,9 +23,10 @@ $bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #fff 0%, #edf1ff 
 
   max-width: 600px;
 
+  max-width: 600px;
+
   font-weight: bold;
   text-align: center;
-
   @include b('mobile') {
     max-width: 350px;
   }

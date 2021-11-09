@@ -57,11 +57,23 @@ a {
   cursor: pointer;
 }
 
-//
+// Third Party
 .rc-dropdown {
   & > * {
     font: {
       family: $default-font, sans-serif;
     }
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }

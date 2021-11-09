@@ -1,0 +1,47 @@
+@import 'styles/vars/colors';
+@import 'styles/mixins/main';
+
+.binput {
+  @include flexbox(center, space-between);
+  padding: 16px 16px 16px 20px;
+
+  min-height: 88px;
+
+  border: 1px solid $accent-neutral;
+  border-radius: 14px;
+
+  box-shadow: 0 4px 25px rgba(112, 112, 112, 0.1);
+
+  & + & {
+    margin-top: 10px;
+  }
+}
+
+.input,
+input {
+  width: 100%;
+
+  font-size: 24px;
+  line-height: 29px;
+
+  color: $accent-neutral;
+  border: none;
+
+  &:hover,
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
+  &:read-only {
+    cursor: default;
+  }
+
+  &::placeholder {
+    color: $lightgrey-4;
+  }
+}
+
+.content {
+  width: 100%;
+}

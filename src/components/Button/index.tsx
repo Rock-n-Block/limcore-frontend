@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import cn from 'classnames';
 
-import Icon from 'components/Icon';
+import { Icon } from 'components';
 
 import styles from './Button.module.scss';
 

@@ -11,6 +11,7 @@ import styles from './header.module.scss';
 
 const Header: React.FC = () => {
   const isPrevious = true;
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>

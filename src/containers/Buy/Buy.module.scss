@@ -1,0 +1,20 @@
+@import 'styles/vars/colors';
+@import 'styles/mixins/main';
+
+.balance {
+  margin-bottom: 20px;
+  padding: 12px 20px;
+
+  background: $lightgrey-5;
+  border-radius: 14px;
+  @include flexbox(center, space-between);
+  @include b('mobile') {
+    margin-bottom: 10px;
+  }
+}
+
+.btn {
+  margin: 30px auto 0;
+
+  display: block;
+}

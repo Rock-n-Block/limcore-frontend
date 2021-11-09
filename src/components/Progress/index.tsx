@@ -8,7 +8,7 @@ interface IProgress {
   sectors?: number;
 }
 
-const Progress: React.FC<IProgress> = ({ percent, sectors }) => {
+const Progress: React.FC<IProgress> = ({ percent, sectors = 0 }) => {
   return (
     <div className={style.progress}>
       <div className={style.progress_thumb} style={{ width: `${percent}%` }} />
