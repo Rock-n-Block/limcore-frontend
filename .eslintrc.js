@@ -6,6 +6,7 @@ const aliasPaths = [
   'components',
   'config',
   'containers',
+  'hooks',
   'pages',
   'store',
   'styles',

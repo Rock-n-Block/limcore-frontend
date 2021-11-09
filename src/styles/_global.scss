@@ -4,7 +4,6 @@
 @import './mixins/main';
 @import './variables';
 @import './typography';
-@import './components/index';
 
 * {
   box-sizing: border-box;
@@ -78,3 +77,5 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+@import './components/index';

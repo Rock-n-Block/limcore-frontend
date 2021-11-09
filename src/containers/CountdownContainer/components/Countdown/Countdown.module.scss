@@ -1,0 +1,7 @@
+@import 'styles/mixins/main';
+
+.container {
+  @include flexbox(center, flex-start);
+
+  gap: 4px;
+}
