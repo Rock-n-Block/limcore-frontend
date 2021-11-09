@@ -1,25 +1,43 @@
-@import './variables.scss';
-@import './mixins/main.scss';
+@import './reset';
+@import './fonts';
+@import './variables';
+@import './mixins/main';
+@import './typography';
 
 * {
   box-sizing: border-box;
+  font: {
+    family: $default-font, sans-serif;
+  }
 }
 
 html,
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
+
   width: 100%;
 }
 
 .container {
-  max-width: 1040px;
-  padding-left: 20px;
-  padding-right: 20px;
   margin: 0 auto;
+  padding-right: 20px;
+  padding-left: 20px;
+
+  max-width: 1040px;
 }
 
 a {
   text-decoration: none;
+
   cursor: pointer;
+}
+
+//
+.rc-dropdown {
+  & > * {
+    font: {
+      family: $default-font, sans-serif;
+    }
+  }
 }

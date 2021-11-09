@@ -1,3 +1,57 @@
-.button {
+@import 'styles/vars/colors';
+@import 'styles/typography';
 
+.button {
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 14px;
+
+  transition: filter 0.2s ease-out;
+
+  &:hover {
+    filter: brightness(97%);
+  }
+
+  &:active {
+    filter: brightness(93%);
+  }
+
+  &Outline {
+    border: 1px solid red;
+  }
+
+  &Primary {
+    // background: black;
+    border-color: $accent-neutral;
+  }
+}
+
+.prefix {
+  margin-right: 10px;
+
+  display: flex;
+
+  width: max-content;
+  height: 24px;
+
+  &Primary {
+  }
+}
+
+.prefixIcon {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  &Primary {
+    color: $accent-neutral;
+  }
 }

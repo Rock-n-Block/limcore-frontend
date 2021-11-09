@@ -1,0 +1,41 @@
+// $font-size-1: 60px;
+// $font-size-2: 44px;
+// $font-size-3: 32px;
+// $font-size-30: 30px;
+// $font-size-4: 24px;
+// $font-size-5: 22px;
+// $font-size-6: 20px;
+// $font-size-7: 18px;
+// $font-size-8: 16px;
+// $font-size-9: 12px;
+
+$font-size-14: 14px;
+
+$line-height-14: 22px;
+
+.text {
+  &_light {
+    font-weight: 300;
+  }
+
+  &_normal {
+    font-weight: 400;
+  }
+
+  &_medium {
+    font-weight: 500;
+  }
+
+  &_semibold {
+    font-weight: 600;
+  }
+
+  &_bold {
+    font-weight: 700;
+  }
+
+  &_14 {
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+  }
+}

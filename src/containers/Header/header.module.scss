@@ -1,0 +1,61 @@
+@import 'styles/vars/media';
+@import 'styles/vars/colors';
+@import 'styles/mixins/main';
+
+$header-height: 70px;
+
+.header {
+}
+
+.container {
+  position: sticky;
+
+  padding: 0 60px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: $header-height;
+
+  @include b(tablet) {
+    padding: 0 10px;
+
+    background-color: $white;
+  }
+}
+
+.leftBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  @include b(tablet) {
+    width: 100%;
+  }
+}
+
+.rightBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  @include b(tablet) {
+    position: fixed;
+    top: $header-height + 20px;
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+  }
+}
+
+.backButton {
+  margin-right: 22px;
+}
