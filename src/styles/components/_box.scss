@@ -4,6 +4,9 @@
   border-radius: 14px;
   padding: 40px 30px;
   background: $white;
+  & + & {
+    margin-top: 15px;
+  }
   &_main {
     @extend .box;
     padding: 40px 70px 30px;
