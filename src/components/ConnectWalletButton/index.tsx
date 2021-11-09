@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import shieldIcon from 'assets/img/icons/shield.svg';
 import { Button } from 'components';
 import { addressShortener } from 'utils/formatters';
+import { useWalletConnectorContext } from 'services';
 
 import styles from './connect-wallet-button.module.scss';
-import { useWalletConnectorContext } from 'services';
 
 type IConnectWalletButtonProps = {
   userAddress?: string;

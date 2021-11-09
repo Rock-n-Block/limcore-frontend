@@ -1,12 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
 
+import ConnectWalletButton from 'components/ConnectWalletButton';
 import { useWalletConnectorContext } from 'services';
 
 import { Buy } from '..';
 
 import style from './BuyWrapper.module.scss';
-import ConnectWalletButton from 'components/ConnectWalletButton';
 
 const BuyWrapper: React.FC = () => {
   const { address } = useWalletConnectorContext();
