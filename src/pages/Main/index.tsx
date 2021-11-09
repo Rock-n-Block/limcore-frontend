@@ -11,7 +11,7 @@ const Main: React.FC = () => {
       <Preview />
       <div className={cn(style.container, 'container')}>
         <div className={cn(style.box_mini, style.box)}>
-          <CurrentRound />
+          <CurrentRound days={5} allTokens={9191001} soldTokens={9191001 / 2} />
         </div>
         <div className={cn(style.box_big, style.box)}>2</div>
       </div>

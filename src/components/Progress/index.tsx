@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
 import style from './Progress.module.scss';
 
@@ -13,7 +14,7 @@ const Progress: React.FC<IProgress> = ({ percent, sectors }) => {
       <div className={style.progress_thumb} style={{ width: `${percent}%` }} />
       <div className={style.sectors}>
         {new Array(sectors).fill(0).map(() => (
-          <div className={style.sector} />
+          <div className={style.sector} key={nextId()} />
         ))}
       </div>
     </div>
