@@ -1,9 +1,12 @@
 import React from 'react';
+import { MainPage } from 'pages';
 
-import './utils/i18n';
-
-import './App.scss';
+import './styles/index.scss';
 
 export const App: React.FC = () => {
-  return <div className="">app</div>;
+  return (
+    <div className="app">
+      <MainPage />
+    </div>
+  );
 };

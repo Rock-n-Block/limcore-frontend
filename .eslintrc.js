@@ -145,7 +145,18 @@ module.exports = {
     settings: {
         'import/resolver': {
             alias: {
-                map: [['@', './src/', './node_modules/']],
+                map: [
+                  ['assets', './src/assets'],
+                  ['components', './src/components'],
+                  ['config', './src/config'],
+                  ['containers', './src/containers'],
+                  ['pages', './src/pages'],
+                  ['store', './src/store'],
+                  ['styles', './src/styles'],
+                  ['typings', './src/typings'],
+                  ['utils', './src/utils'],
+                  './node_modules/',
+                ],
                 extensions: ['.ts', '.tsx', '.json', 'js', 'jsx'],
             },
         },

@@ -1,0 +1,15 @@
+$bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #FFFFFF 0%, #EDF1FF 100%);
+
+.container {}
+
+.bg {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 422px;
+  width: 100%;
+  background: url(../../assets/img/bg-1.svg), $bg-radial-gradient;
+  background-position-x: right;
+  background-repeat: no-repeat;
+}
