@@ -35,7 +35,7 @@
   @include flexbox(initial, initial);
   margin-right: 10px;
 
-  width: max-content;
+  min-width: max-content;
   height: 24px;
 
   &Primary {

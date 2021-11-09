@@ -5,17 +5,19 @@
 $header-height: 70px;
 
 .header {
+  @include flexbox(initial, center);
 }
 
 .container {
-  position: sticky;
-
-  padding: 0 60px;
-
-  height: $header-height;
+  position: fixed;
   @include flexbox(center, space-between);
+  height: $header-height;
+  width: 100%;
+  max-width: 1040px;
+  padding: 0 20px;
 
   @include b(tablet) {
+    position: sticky;
     padding: 0 10px;
 
     background-color: $white;
@@ -24,6 +26,7 @@ $header-height: 70px;
 
 .leftBlock {
   @include flexbox(center, space-between);
+
   @include b(tablet) {
     width: 100%;
   }
@@ -34,7 +37,7 @@ $header-height: 70px;
   gap: 20px;
 
   @include b(tablet) {
-    position: fixed;
+    position: absolute;
     top: $header-height + 20px;
     @include flexbox(center, center, row-reverse);
     width: 100%;
