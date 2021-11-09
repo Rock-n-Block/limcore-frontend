@@ -1,18 +1,21 @@
 import React from 'react';
-import { Button } from 'components';
-import Header from 'containers/Header';
+import cn from 'classnames';
 
-import styles from './main.module.scss';
+import { Preview, CurrentRound } from 'containers';
+
+import style from './main.module.scss';
 
 const Main: React.FC = () => {
   return (
-    <>
-      <Header />
-      <div className={styles.container}>
-        <Button />
+    <div className={style.main}>
+      <Preview />
+      <div className={cn(style.container, 'container')}>
+        <div className={cn(style.box_mini, style.box)}>
+          <CurrentRound />
+        </div>
+        <div className={cn(style.box_big, style.box)}>2</div>
       </div>
-      <div className={styles.bg} />
-    </>
+    </div>
   );
 };
 

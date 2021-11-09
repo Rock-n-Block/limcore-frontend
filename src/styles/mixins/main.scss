@@ -1,3 +1,4 @@
+@import '../vars/media';
 @mixin font-face($font-family, $file-path, $font-weight, $style: normal, $asset-pipeline: false) {
   @font-face {
     font-family: $font-family;

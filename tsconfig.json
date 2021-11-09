@@ -30,7 +30,7 @@
     "stripInternal": true,
     "sourceMap": true,
     "noImplicitThis": false,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "target": "es5",

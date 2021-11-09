@@ -14,21 +14,37 @@ export const chains: {
     img?: any;
   };
 } = {
-  Trust: {
+  'Trust': {
     name: 'Trust Wallet',
     chainId: is_production ? 1 : 0,
     provider: {
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'bridge',
+        provider: {
+          bridge: {
+            bridge: 'https://bridge.walletconnect.org',
+          },
+        },
+      },
+    },
+  },
+  'Binance-Smart-Chain': {
+    name: 'Binance-Smart-Chain',
+    chainId: is_production ? 56 : 97,
+    provider: {
+      MetaMask: { name: 'MetaMask' },
       WalletConnect: {
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
           rpc: {
             rpc: {
-              [is_production ? 1 : 4]: is_production
+              [is_production ? 56 : 97]: is_production
                 ? 'https://bsc-dataseed.binance.org/'
                 : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
             },
-            chainId: is_production ? 1 : 4,
+            chainId: is_production ? 56 : 97,
           },
         },
       },
@@ -36,16 +52,10 @@ export const chains: {
   },
 };
 
-export const connectWallet = (
-  chainName: string,
-): IConnectWallet & {
-  blockchains: Array<string>;
-} => {
+export const connectWallet = (chainName: string): IConnectWallet => {
   const chain = chains[chainName];
 
   return {
-    wallets: ['MetaMask', 'WalletConnect'],
-    blockchains: ['Ethereum', 'Binance Smart Chain', 'Polygon'],
     network: {
       name: chain.name.toString(),
       chainID: chain.chainId,
