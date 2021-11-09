@@ -35,4 +35,13 @@ h3,
     font-size: 14px;
     line-height: 20px;
   }
+  &_center {
+    text-align: center;
+  }
+  &_upper {
+    text-transform: uppercase;
+  }
+  &_white {
+    color: $white;
+  }
 }
