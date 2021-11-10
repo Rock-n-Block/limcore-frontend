@@ -8,9 +8,8 @@ import './styles/index.scss';
 export const App: React.FC = () => {
   return (
     <div className="app">
+      <Header />
       <div className="content">
-        <Header />
-
         <MainPage />
       </div>
     </div>

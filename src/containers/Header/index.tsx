@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 import { LogoSvg } from 'assets/img/icons';
 import ChangeLanguage from 'components/ChangeLanguage';
@@ -14,7 +15,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <div className={cn(styles.container, 'container')}>
         <div className={styles.leftBlock}>
           {isPrevious && <BackButton className={styles.backButton} />}
           <a href="/">
