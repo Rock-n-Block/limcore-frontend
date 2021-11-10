@@ -46,6 +46,7 @@
     "rc-dropdown": "^3.2.0",
     "rc-input-number": "^7.3.3",
     "rc-menu": "^9.0.14",
+    "rc-tooltip": "^5.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.13.0",

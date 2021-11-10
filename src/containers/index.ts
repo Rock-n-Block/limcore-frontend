@@ -4,3 +4,5 @@ export { default as CurrentPrice } from './CurrentPrice';
 export { default as BuyWrapper } from './BuyWrapper';
 export { default as Buy } from './Buy';
 export { default as Header } from './Header';
+export { default as CountdownContainer } from './CountdownContainer';
+export { default as ContractsAddresses } from './ContractsAddresses';

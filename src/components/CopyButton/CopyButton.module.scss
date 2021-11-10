@@ -1,0 +1,9 @@
+@import 'styles/mixins/main';
+
+.button {
+  border: none;
+}
+
+.inner {
+  @include flexbox();
+}

@@ -10,14 +10,17 @@ $header-height: 70px;
 
 .container {
   position: fixed;
-  @include flexbox(center, space-between);
-  height: $header-height;
+
+  padding: 0 20px;
+
   width: 100%;
   max-width: 1040px;
-  padding: 0 20px;
+  height: $header-height;
+  @include flexbox(center, space-between);
 
   @include b(tablet) {
     position: sticky;
+
     padding: 0 10px;
 
     background-color: $white;

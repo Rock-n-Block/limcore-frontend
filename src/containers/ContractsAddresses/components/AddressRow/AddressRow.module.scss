@@ -1,0 +1,46 @@
+@import 'styles/mixins/main';
+@import 'styles/vars/colors';
+@import 'styles/typography';
+
+.container {
+  @include flexbox(center, space-between);
+  padding-top: 20px;
+
+  border-top: 2px solid rgba($black, 0.03);
+  gap: 10px;
+
+  @include b(mobile) {
+    padding-top: 10px;
+  }
+}
+
+.primary {
+  @include flexbox(initial, initial, column);
+  overflow-wrap: anywhere;
+  gap: 5px;
+}
+
+.secondary {
+  color: $secondary;
+}
+
+.title {
+  font-size: $font-size-13;
+  line-height: $line-height-13;
+
+  color: $lightgrey-4;
+}
+
+.content {
+  color: $grey-1;
+}
+
+.copyButton {
+  width: 28px;
+  height: 28px;
+
+  cursor: pointer;
+
+  background-color: $accent-neutral;
+  border-radius: 4px;
+}

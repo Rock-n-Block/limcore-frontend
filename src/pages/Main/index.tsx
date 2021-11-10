@@ -1,7 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { BuyWrapper, CurrentPrice, CurrentRound, Preview } from 'containers';
+import { BuyWrapper, CountdownContainer, CurrentPrice, CurrentRound, Preview } from 'containers';
+import ContractsAddresses from 'containers/ContractsAddresses';
 
 import style from './main.module.scss';
 
@@ -13,9 +14,11 @@ const Main: React.FC = () => {
         <div className={cn(style.box_mini, style.box)}>
           <CurrentRound days={5} allTokens={9191001} soldTokens={9191001 / 2} />
           <CurrentPrice price={0.1} />
+          <CountdownContainer />
         </div>
         <div className={cn(style.box_big, style.box)}>
           <BuyWrapper />
+          <ContractsAddresses />
         </div>
       </div>
     </div>
