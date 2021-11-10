@@ -1,5 +1,6 @@
 {
   "back": "Back",
+  "paste": "Paste",
   "connect trust wallet": "Connect Trust Wallet",
   "preview": "Tokens Pre-Sale",
   "round": {
@@ -22,10 +23,10 @@
   "send": "send",
   "unlock": {
     "title": "Tokens will be unlocked in",
-    "days": "days",
-    "hours": "hours",
-    "min": "minutes",
-    "sec": "seconds"
+    "days_short": "days",
+    "hours_short": "hours",
+    "min_short": "min",
+    "sec_short": "sec"
   },
   "buy": {
     "success": "Successfully bought",
@@ -39,7 +40,7 @@
     "modals": {
       "approve": {
         "pending": {
-          "title": "Press «Approve» button in Trust wallet",
+          "title": "Press «Approve» button in Trust Wallet",
           "subtitle1": "BEP20 tokens are deployed with functionality that allows other smart contracts to move tokens.",
           "subtitle2": "By approving the smart contracts, it now has permission to execute the peer to peer swapping behavior on your behalf.",
           "subtitle3": "The Spend Limit permission is the total amount of tokens that are able to move when using Trust Wallet."
@@ -51,7 +52,7 @@
       },
       "send": {
         "pending": {
-          "title": "Please press 'Send' button in Trust wallet",
+          "title": "Please press 'Send' button in Trust Wallet",
           "subtitle": "Your USDT will be transferred from your wallet to the contract address"
         },
         "rejected": {

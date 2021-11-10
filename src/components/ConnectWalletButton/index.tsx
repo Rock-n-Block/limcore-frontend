@@ -18,9 +18,11 @@ const ConnectWalletButton: React.FC<IConnectWalletButtonProps> = ({ onClick, ...
 
   return (
     <Button
+      className={styles.button}
       outline
+      color="primary"
       prefix={shieldIcon}
-      customClassNames={{ button: styles.button, prefix: styles.icon }}
+      customClassNames={{ prefix: styles.icon }}
       onClick={hasConnectedWallet ? onClick : connect}
       {...props}
     >

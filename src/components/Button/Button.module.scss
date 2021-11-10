@@ -1,5 +1,6 @@
 @import 'styles/vars/colors';
 @import 'styles/mixins/main';
+@import 'styles/animations';
 
 .button {
   @include flexbox(center, initial);
@@ -19,6 +20,13 @@
 
   &:active {
     filter: brightness(93%);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    color: rgba(0, 0, 0, 0.1);
+    background: rgba(197, 196, 195, 0.5);
   }
 
   &Outline {
@@ -51,4 +59,12 @@
   &Primary {
     color: $accent-neutral;
   }
+}
+
+.pending {
+  margin-right: 6px;
+
+  width: 20px;
+
+  animation: rotating 1s linear infinite;
 }

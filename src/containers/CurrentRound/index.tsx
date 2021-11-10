@@ -1,7 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
-import { useTranslation } from 'react-i18next';
 
 import { Progress } from 'components';
 

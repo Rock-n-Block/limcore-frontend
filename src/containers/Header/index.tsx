@@ -38,8 +38,6 @@ const Header: React.FC = () => {
 
   const { isIntersecting } = useHeaderIntersecting();
 
-  console.log(isIntersecting);
-
   return (
     <header
       className={cn(styles.header, {

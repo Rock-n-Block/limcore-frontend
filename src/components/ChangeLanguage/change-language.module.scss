@@ -15,16 +15,12 @@
   @include flexbox(center, initial);
   gap: 10px;
 
-  text-transform: uppercase;
-
   color: $secondary;
 }
 
 .menuItemContent {
   @include flexbox(center, initial);
   padding: 2px 30px 2px 10px;
-
-  text-transform: uppercase;
 
   color: $secondary;
   gap: 10px;
@@ -50,13 +46,14 @@
 
 .dropdownBody {
   position: fixed;
-  z-index: 0;
+  z-index: 1;
 
   @include b(tablet) {
     position: absolute;
+    z-index: 0;
   }
 
   & > * {
-    z-index: 0;
+    z-index: 1;
   }
 }

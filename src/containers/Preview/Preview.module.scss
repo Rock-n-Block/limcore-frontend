@@ -4,7 +4,7 @@
 $bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #fff 0%, #edf1ff 100%);
 
 $preview-gap: 20px;
-$preview-padding-top: $header-height+$preview-gap;
+$preview-padding-top: $header-height + $preview-gap;
 
 .preview {
   margin-bottom: -140px;
@@ -42,6 +42,7 @@ $preview-padding-top: $header-height+$preview-gap;
 
   font-weight: bold;
   text-align: center;
+
   color: $primary;
 
   @include b('mobile') {

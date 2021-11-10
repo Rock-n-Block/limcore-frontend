@@ -32,7 +32,11 @@ const MenuItemContent: React.FC<IMenuItemContentProps> = ({ className, name, ico
 const menuItems = Object.entries(languages).map(([langCode, icon]) => {
   return (
     <MenuItem key={langCode} className={styles.menuItem}>
-      <MenuItemContent className={cn(styles.menuItemContent)} name={langCode} icon={icon} />
+      <MenuItemContent
+        className={cn(styles.menuItemContent, 'text_upper')}
+        name={langCode}
+        icon={icon}
+      />
     </MenuItem>
   );
 });
@@ -70,9 +74,9 @@ const ChangeLanguage: React.FC<IChangeLanguageProps> = ({ customClasses = {} }) 
         >
           <div>
             <Button>
-              <div className={cn(styles.buttonContent, 'text_medium text_14')}>
+              <div className={cn(styles.buttonContent, 'text_medium', 'text_14')}>
                 <MenuItemContent
-                  className={styles.menuItemHeader}
+                  className={cn(styles.menuItemHeader, 'text_upper')}
                   name={i18n.resolvedLanguage}
                   icon={languages[i18n.resolvedLanguage as ILanguages]}
                 />

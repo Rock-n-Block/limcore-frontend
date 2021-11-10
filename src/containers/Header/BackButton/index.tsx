@@ -14,9 +14,11 @@ const BackButton: React.FC<IBackButtonProps> = ({ className }) => {
   return (
     <a href="/">
       <Button
+        className={className}
         outline
+        color="primary"
         prefix={arrowLeftIcon}
-        customClassNames={{ button: className, prefix: styles.icon }}
+        customClassNames={{ prefix: styles.icon }}
       >
         {t('back')}
       </Button>

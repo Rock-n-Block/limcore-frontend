@@ -1,6 +1,6 @@
 import React from 'react';
-import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
 
 import style from './CurrentPrice.module.scss';
 
