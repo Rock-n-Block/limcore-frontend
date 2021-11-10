@@ -18,7 +18,7 @@ const Modal: React.FC<IModal> = ({ children, handleClose, isVisible }) => {
       destroyOnClose
       prefixCls="modal"
       closeIcon={<img src={closeIcon} alt="close" />}
-      className="box"
+      className="box_modal"
       visible={isVisible}
       onClose={handleClose}
     >

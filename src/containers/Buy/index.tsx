@@ -3,11 +3,14 @@ import cn from 'classnames';
 
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
-import { Button, BuyInput, Currency } from 'components';
+import { Button, BuyInput, Currency, BuyModal } from 'components';
+import { useBuyModals } from 'hooks';
 
 import style from './Buy.module.scss';
 
 const Buy: React.FC = () => {
+  const { modals, handleOpenApproveStart } = useBuyModals();
+
   return (
     <div className={style.buy}>
       <div className={cn(style.balance, 'text_sm')}>
@@ -25,7 +28,12 @@ const Buy: React.FC = () => {
         prefix={<Currency img={LinkImg} symbol="limc" bg="gray" />}
       />
       <BuyInput title="Адрес получения LIMC" isNumber={false} placeholder="0x0" />
-      <Button className={style.btn}>Купить</Button>
+      <Button className={style.btn} onClick={handleOpenApproveStart}>
+        Купить
+      </Button>
+      {modals().map((modal) => (
+        <BuyModal {...modal} />
+      ))}
     </div>
   );
 };

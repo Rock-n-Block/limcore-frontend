@@ -26,4 +26,11 @@
       padding: 20px 10px;
     }
   }
+  &_modal {
+    @extend .box;
+    padding: 40px;
+    @include b('mobile') {
+      padding: 20px;
+    }
+  }
 }
