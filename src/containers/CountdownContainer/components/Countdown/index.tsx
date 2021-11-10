@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { useCountdownTimer } from 'hooks';
 import { OptionalClassNameProp } from 'typings';
@@ -19,11 +20,14 @@ interface ICountdown extends OptionalClassNameProp {
 }
 
 const Countdown: React.FC<ICountdown> = ({ className, startDate, customClasses = {} }) => {
-  const startUnixTimestamp = Math.floor(startDate.getTime() / 1e3);
+  const { t } = useTranslation();
+  const startUnixTimestamp = React.useCallback(() => Math.floor(startDate.getTime() / 1e3), [
+    startDate,
+  ]);
   const endUnixTimestamp = Math.floor(new Date('2021-12-05T00:00:00.000Z').getTime() / 1e3); // Dec 05 2021 00:00:00
 
   const { secondsRemaining } = useCountdownTimer({
-    startTime: startUnixTimestamp,
+    startTime: startUnixTimestamp(),
     endTime: endUnixTimestamp,
   });
 
@@ -39,28 +43,28 @@ const Countdown: React.FC<ICountdown> = ({ className, startDate, customClasses =
       <CounterBlock
         className={cn(customClasses.counterBlock)}
         value={days}
-        info="дней"
+        info={t('unlock.days')}
         {...counterBlocksProps}
       />
       <div className="counter-block__separator">:</div>
       <CounterBlock
         className={cn(customClasses.counterBlock)}
         value={hours}
-        info="часов"
+        info={t('unlock.hours')}
         {...counterBlocksProps}
       />
       <div className="counter-block__separator">:</div>
       <CounterBlock
         className={cn(customClasses.counterBlock)}
         value={minutes}
-        info="мин"
+        info={t('unlock.min')}
         {...counterBlocksProps}
       />
       <div className="counter-block__separator">:</div>
       <CounterBlock
         className={cn(customClasses.counterBlock)}
         value={seconds}
-        info="сек"
+        info={t('unlock.sec')}
         {...counterBlocksProps}
       />
     </div>
