@@ -55,7 +55,6 @@ class Connector extends React.Component<
           'Binance-Smart-Chain',
           'WalletConnect',
         );
-        alert(`${isConnected} isConnected`);
         if (isConnected) {
           this.state.provider.getAccount().subscribe(
             (userAccount: any) => {
