@@ -8,6 +8,9 @@
   border: 1px solid $lightgrey-1;
   border-radius: 14px;
   box-shadow: $box-shadow;
+  @include b('tablet') {
+    padding: 25px;
+  }
   @include b('mobile') {
     padding: 20px;
   }
@@ -23,6 +26,9 @@
     @extend .box;
     border-color: $accent-neutral;
     padding: 40px 70px 30px;
+    @include b('tablet') {
+      padding: 30px;
+    }
     @include b('mobile') {
       padding: 20px 10px;
     }
