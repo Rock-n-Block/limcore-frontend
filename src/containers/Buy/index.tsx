@@ -1,10 +1,10 @@
 import React from 'react';
-import cn from 'classnames';
 import { toast } from 'react-toastify';
+import cn from 'classnames';
 
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
-import { Button, BuyInput, Currency, BuyModal, SuccessToast } from 'components';
+import { Button, BuyInput, BuyModal, Currency, SuccessToast } from 'components';
 import { useBuyModals } from 'hooks';
 
 import style from './Buy.module.scss';

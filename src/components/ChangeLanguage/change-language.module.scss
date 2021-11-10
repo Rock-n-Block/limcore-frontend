@@ -37,7 +37,7 @@
   color: $grey-3;
 }
 
-.dropdown {
+.menu {
   top: -14px;
 
   overflow: hidden;
@@ -46,4 +46,17 @@
   border: none;
   border-radius: 14px;
   box-shadow: 0 4px 25px rgba(112, 112, 112, 0.1);
+}
+
+.dropdownBody {
+  position: fixed;
+  z-index: 0;
+
+  @include b(tablet) {
+    position: absolute;
+  }
+
+  & > * {
+    z-index: 0;
+  }
 }

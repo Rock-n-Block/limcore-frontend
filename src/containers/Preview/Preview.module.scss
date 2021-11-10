@@ -1,18 +1,35 @@
 @import 'styles/mixins/main';
+@import 'styles/variables';
 
 $bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #fff 0%, #edf1ff 100%);
 
+$preview-gap: 20px;
+$preview-padding-top: $header-height+$preview-gap;
+
 .preview {
   margin-bottom: -140px;
-  padding: 115px 0 180px;
+  padding: $preview-padding-top 0 180px;
 
   background: url(../../assets/img/bg-1.svg), $bg-radial-gradient;
   background-repeat: no-repeat;
   background-position: 100% 0;
 
-  @include b('mobile') {
+  @include b(mobile) {
     margin-bottom: -190px;
-    padding: 160px 0 200px;
+    padding: $preview-padding-top 0 200px;
+  }
+}
+
+.container {
+  @include flexbox(initial, initial, column);
+  gap: $preview-gap;
+}
+
+.header {
+  display: none;
+
+  @include b(tablet) {
+    display: flex;
   }
 }
 
@@ -23,10 +40,10 @@ $bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #fff 0%, #edf1ff 
 
   max-width: 600px;
 
-  max-width: 600px;
-
   font-weight: bold;
   text-align: center;
+  color: $primary;
+
   @include b('mobile') {
     max-width: 350px;
   }

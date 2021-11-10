@@ -1,13 +1,13 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { Modal, Button } from '..';
-
-import style from './BuyModal.module.scss';
-
-import RejectImg from 'assets/img/icons/status-reject.svg';
 import ConfirmedImg from 'assets/img/icons/status-confimed.svg';
 import PendingImg from 'assets/img/icons/status-pending.svg';
+import RejectImg from 'assets/img/icons/status-reject.svg';
+
+import { Button, Modal } from '..';
+
+import style from './BuyModal.module.scss';
 
 export interface IBuyModal {
   isVisible: boolean;

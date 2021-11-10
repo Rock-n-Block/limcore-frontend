@@ -1,8 +1,9 @@
 import { IConnectWallet, IContracts } from 'typings';
 
 import { erc20Abi } from './abi';
+import { is_production } from './constants';
 
-export const is_production = false;
+export * from './constants';
 
 export const chains: {
   [key: string]: {

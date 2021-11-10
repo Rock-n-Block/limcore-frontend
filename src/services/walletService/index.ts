@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import Web3 from 'web3';
 
-import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
+import { connectWallet as connectWalletConfig, contracts, is_production } from 'config';
 
 export class WalletConnect {
   public connectWallet: ConnectWallet;

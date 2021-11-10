@@ -21,12 +21,14 @@
 
   &_main {
     @extend .box;
-    border-color: $accent-neutral;
     padding: 40px 70px 30px;
+
+    border-color: $accent-neutral;
     @include b('mobile') {
       padding: 20px 10px;
     }
   }
+
   &_modal {
     @extend .box;
     padding: 40px;
@@ -34,9 +36,11 @@
       padding: 20px;
     }
   }
+
   &_toast {
     @extend .box;
-    border-color: $accent-neutral;
     padding: 19px 42px 19px 19px;
+
+    border-color: $accent-neutral;
   }
 }

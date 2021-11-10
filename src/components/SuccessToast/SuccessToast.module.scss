@@ -3,9 +3,11 @@
 .stoast {
   @include flexbox(center, flex-start);
 }
+
 .text {
   margin-left: 14px;
 }
+
 .img {
   width: 24px;
 }

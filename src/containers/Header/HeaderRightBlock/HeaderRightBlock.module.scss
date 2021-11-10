@@ -1,0 +1,14 @@
+// @import 'styles/vars/colors';
+@import 'styles/mixins/main';
+
+.container {
+  @include flexbox();
+  gap: 8px;
+
+  @include b(tablet) {
+    // position: absolute;
+    // top: $header-height + 20px;
+    @include flexbox(center, center, row-reverse);
+    width: 100%;
+  }
+}

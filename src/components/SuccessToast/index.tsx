@@ -1,9 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
 
-import style from './SuccessToast.module.scss';
-
 import ConfirmedImg from 'assets/img/icons/status-confimed.svg';
+
+import style from './SuccessToast.module.scss';
 
 interface ISuccessToast {
   text: string;

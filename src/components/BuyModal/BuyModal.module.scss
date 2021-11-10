@@ -8,6 +8,7 @@
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
     -ms-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -20,35 +21,43 @@
 .head {
   @include flexbox(center, flex-start);
 }
+
 .steps {
   margin-right: 13px;
 }
 
 .status {
-  box-shadow: 0px 27px 83px rgba(36, 36, 37, 0.03),
-    0px 8.13971px 25.0221px rgba(36, 36, 37, 0.0195477),
-    0px 3.38082px 10.3929px rgba(36, 36, 37, 0.015),
-    0px 1.22278px 3.7589px rgba(36, 36, 37, 0.0104523);
-  border-radius: 50%;
-  @include flexbox(center, center);
+  margin: 20px auto;
+
   width: 120px;
   height: 120px;
-  margin: 20px auto;
+
+  border-radius: 50%;
+  box-shadow: 0 27px 83px rgba(36, 36, 37, 0.03), 0 8.13971px 25.0221px rgba(36, 36, 37, 0.0195477),
+    0 3.38082px 10.3929px rgba(36, 36, 37, 0.015), 0 1.22278px 3.7589px rgba(36, 36, 37, 0.0104523);
+  @include flexbox(center, center);
+
   &_box {
     @include flexbox(center, flex-start, column);
   }
+
   &_text {
-    text-transform: capitalize;
     margin-top: 13px;
+
+    text-transform: capitalize;
   }
+
   &_pending {
     animation: rotating 2s linear infinite;
   }
 }
+
 .subtitle {
   margin-top: 10px;
 }
+
 .btn {
   margin: 20px auto 0;
+
   display: block;
 }
