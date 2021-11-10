@@ -65,16 +65,13 @@ class Connector extends React.Component<
               });
             }
           },
-          (err: any) => {
-            console.error('getAccount wallet connect - get user account err: ', err);
-            if (err.code && err.code === 6) {
-              this.disconnect();
-            }
+          () => {
             alert(
               `Wrong Network, please select ${
                 is_production ? 'mainnet' : 'testnet'
               } network in your wallet and try again`,
             );
+            this.disconnect();
           },
         );
       }

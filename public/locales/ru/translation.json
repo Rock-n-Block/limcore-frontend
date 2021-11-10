@@ -39,28 +39,28 @@
     "modals": {
       "approve": {
         "pending": {
-          "title": "Нажмите кнопку «Approve» в расширении Метамаска",
-          "subtitle1": "ERC20 tokens are deployed with functionality that allows other smart contracts to move tokens.",
-          "subtitle2": "By approving the smart contracts, it now has permission to execute the peer to peer swapping behavior on your behalf.",
-          "subtitle3": "The Spend Limit permission is the total amount of tokens that are able to move when using MetaMask Swap."
+          "title": "Нажмите кнопку «Approve» в Trust Wallet",
+          "subtitle1": "Токены стандарта BEP-20 реализованы таким образом, что можно разрешить другим смарт-конрактам перемещать их.",
+          "subtitle2": "Одобрив смарт-контракт, он получает разрешение на выполнение P2P обменных операций от вашего имени.",
+          "subtitle3": "Spend Limit разрешение - это общее число токенов, перемещение которых разрешено."
         },
         "rejected": {
-          "title": "Вы отклонили транзакцию «Approve» в расширении Metamask. Если хотите попробовать еще раз, нажмите на кнопку approve еще раз. Или закройте это окно.",
-          "btn": "Approve again"
+          "title": "Вы отклонили транзакцию «Approve» в Trust Wallet. Если хотите попробовать еще раз, нажмите на кнопку "approve еще раз". Или закройте это окно.",
+          "btn": "Approve еще раз"
         }
       },
       "send": {
         "pending": {
-          "title": "Нажмите кнопку «Send» в расширении Metamask",
-          "subtitle": "Your ETH will be transferred from your wallet to the contract address"
+          "title": "Нажмите кнопку «Send» в Trust Wallet",
+          "subtitle": "Ваши USDT будут отправлены с вашего адреса на адрес контракта"
         },
         "rejected": {
-          "title": "Вы отклонили транзакцию «Send» в расширении Metamask. Если хотите попробовать еще раз, нажмите на кнопку «отправить снова». Или закройте это окно.",
+          "title": "Вы отклонили транзакцию «Send» в Trust wallet. Если хотите попробовать еще раз, нажмите на кнопку «отправить еще раз». Или закройте это окно.",
           "btn": "Отправить еще раз"
         },
         "confirmed": {
           "title": "Отправлено",
-          "subtitle": "It takes some time for transaction to get confirmed."
+          "subtitle": "Пожалуйста, подождите пока транзакция будет подтверждена."
         }
       }
     }
