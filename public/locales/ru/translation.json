@@ -1,4 +1,56 @@
 {
   "back": "Вернуться",
-  "connect trust wallet": "Подключение Trust Wallet"
+  "connect trust wallet": "Подключение Trust Wallet",
+  "preview": "Первичное предложение токенов",
+  "round": {
+    "text1": "Текущий раунд",
+    "text2": "{{days}} дней осталось",
+    "text3": "{{soldTokens}} из {{allTokens}} токенов продано"
+  },
+  "price": {
+    "text1": "Текущая цена LIMC",
+    "text2": "Lock-up период 6 месяцев"
+  },
+  "approve": "approve",
+  "pending": "pending",
+  "rejected": "rejected",
+  "send": "отправить",
+  "buy": {
+    "success": "Покупка прошла успешно",
+    "title": "Вы покупаете LIMC токены, отправляя USDT на адрес контракта продажи",
+    "connect": "Подключите кошелек, чтобы купить LIMC",
+    "balance": "Ваш баланс LIMC",
+    "input1": "Отправить",
+    "input2": "Получить LIMC",
+    "input3": "Адрес получения LIMC",
+    "btn": "Купить",
+    "modals": {
+      "approve": {
+        "pending": {
+          "title": "Нажмите кнопку «Approve» в расширении Метамаска",
+          "subtitle1": "ERC20 tokens are deployed with functionality that allows other smart contracts to move tokens.",
+          "subtitle2": "By approving the smart contracts, it now has permission to execute the peer to peer swapping behavior on your behalf.",
+          "subtitle3": "The Spend Limit permission is the total amount of tokens that are able to move when using MetaMask Swap."
+        },
+        "rejected": {
+          "title": "Вы отклонили транзакцию «Approve» в расширении Metamask. Если хотите попробовать еще раз, нажмите на кнопку approve еще раз. Или закройте это окно.",
+          "btn": "Approve again"
+        }
+      },
+      "send": {
+        "pending": {
+          "title": "Нажмите кнопку «Send» в расширении Metamask",
+          "subtitle": "Your ETH will be transferred from your wallet to the contract address"
+        },
+        "rejected": {
+          "title": "Вы отклонили транзакцию «Send» в расширении Metamask. Если хотите попробовать еще раз, нажмите на кнопку «отправить снова». Или закройте это окно.",
+          "btn": "Отправить еще раз"
+        },
+        "confirmed": {
+          "title": "Отправлено",
+          "subtitle": "It takes some time for transaction to get confirmed."
+        }
+      }
+    }
+  }
 }

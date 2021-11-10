@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { Modal, Button } from '..';
 
@@ -34,6 +35,8 @@ const BuyModal: React.FC<IBuyModal> = ({
   action,
   btnText,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal isVisible={isVisible} handleClose={handleClose}>
       <div className={cn(style.head, 'h2 text_bold')}>
@@ -44,13 +47,13 @@ const BuyModal: React.FC<IBuyModal> = ({
       </div>
       <div className={style.status}>
         <div className={style.status_box}>
-          {status === 'rejected' ? <img src={RejectImg} alt={status} /> : null}
-          {status === 'confirmed' ? <img src={ConfirmedImg} alt={status} /> : null}
+          {status === 'rejected' ? <img src={RejectImg} alt={t(status)} /> : null}
+          {status === 'confirmed' ? <img src={ConfirmedImg} alt={t(status)} /> : null}
           {status === 'pending' ? (
-            <img src={PendingImg} className={style.status_pending} alt={status} />
+            <img src={PendingImg} className={style.status_pending} alt={t(status)} />
           ) : null}
           {status === 'rejected' || status === 'pending' ? (
-            <div className={cn(style.status_text, 'text_sm text_gray')}>{status}</div>
+            <div className={cn(style.status_text, 'text_sm text_gray')}>{t(status)}</div>
           ) : null}
         </div>
       </div>
