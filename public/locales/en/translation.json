@@ -1,4 +1,68 @@
 {
   "back": "Back",
-  "connect trust wallet": "Connect Trust Wallet"
+  "connect trust wallet": "Connect Trust Wallet",
+  "preview": "Tokens Pre-Sale",
+  "round": {
+    "text1": "Current stage",
+    "text2": "{{days}} days left",
+    "text3": "{{soldTokens}} of {{allTokens}} tokens sold"
+  },
+  "price": {
+    "text1": "Current LIMC price",
+    "text2": "Lock-up period is 6 months"
+  },
+  "contracts": {
+    "title": "Contracts` addresses",
+    "text1": "LIMC token contract address",
+    "text2": "Crowdsale contract address"
+  },
+  "approve": "approve",
+  "pending": "pending",
+  "rejected": "rejected",
+  "send": "send",
+  "unlock": {
+    "title": "Tokens will be unlocked in",
+    "days": "days",
+    "hours": "hours",
+    "min": "minutes",
+    "sec": "seconds"
+  },
+  "buy": {
+    "success": "Successfully bought",
+    "title": "You buy LIMC tokens by sending USDT to crowdsale contract",
+    "connect": "Connect wallet to buy LIMC",
+    "balance": "Your LIMC balance",
+    "input1": "Send",
+    "input2": "Receive LIMC",
+    "input3": "LIMC receiver address",
+    "btn": "Buy",
+    "modals": {
+      "approve": {
+        "pending": {
+          "title": "Press «Approve» button in Trust wallet",
+          "subtitle1": "BEP20 tokens are deployed with functionality that allows other smart contracts to move tokens.",
+          "subtitle2": "By approving the smart contracts, it now has permission to execute the peer to peer swapping behavior on your behalf.",
+          "subtitle3": "The Spend Limit permission is the total amount of tokens that are able to move when using Trust Wallet."
+        },
+        "rejected": {
+          "title": "You rejected «Approve» transaction in Trust Wallet. Press Approve again to start over or close this window.",
+          "btn": "Approve again"
+        }
+      },
+      "send": {
+        "pending": {
+          "title": "Please press 'Send' button in Trust wallet",
+          "subtitle": "Your USDT will be transferred from your wallet to the contract address"
+        },
+        "rejected": {
+          "title": "You rejected Send transaction in Trust Wallet. Press Send again to start over or close this window.",
+          "btn": "Send Again"
+        },
+        "confirmed": {
+          "title": "Sent",
+          "subtitle": "It takes some time for transaction to get confirmed."
+        }
+      }
+    }
+  }
 }

@@ -2,7 +2,9 @@
 
 .container {
   @include flexbox(flex-start, space-between);
+  gap: 0 15px;
   @include b('mobile') {
+    gap: 0;
     @include flexbox(center, flex-start, column-reverse);
   }
 }

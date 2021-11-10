@@ -7,3 +7,4 @@ export { default as Currency } from './Currency';
 export { default as Modal } from './Modal';
 export { default as BuyModal } from './BuyModal';
 export { default as SuccessToast } from './SuccessToast';
+export { default as ConnectWalletButton } from './ConnectWalletButton';

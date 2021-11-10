@@ -1,6 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { Progress } from 'components';
 
@@ -13,15 +14,12 @@ interface ICurrentRound {
 }
 
 const CurrentRound: React.FC<ICurrentRound> = ({ days, allTokens, soldTokens }) => {
-  console.log(
-    +new BigNumber(new BigNumber(soldTokens).multipliedBy(100)).dividedBy(allTokens),
-    '+new BigNumber(new BigNumber(soldTokens).multipliedBy(100)).dividedBy(allTokens)',
-  );
+  const { t } = useTranslation();
   return (
     <div className={cn(style.container, 'box')}>
       <h2 className={cn(style.title, 'text_bold')}>№1</h2>
-      <h3 className={cn(style.subtitle, 'text_blue')}>Текущий раунд</h3>
-      <div className={cn(style.text, 'text_sm')}>{days} дней осталось</div>
+      <h3 className={cn(style.subtitle, 'text_blue')}>{t('round.text1')}</h3>
+      <div className={cn(style.text, 'text_sm')}>{t('round.text2', { days })}</div>
       <div className={style.progress}>
         <Progress
           percent={+new BigNumber(new BigNumber(soldTokens).multipliedBy(100)).dividedBy(allTokens)}
@@ -29,7 +27,7 @@ const CurrentRound: React.FC<ICurrentRound> = ({ days, allTokens, soldTokens }) 
         />
       </div>
       <div className={cn(style.tokens, 'text_md')}>
-        {soldTokens} из {allTokens} токенов продано{' '}
+        {t('round.text3', { allTokens, soldTokens })}
       </div>
     </div>
   );

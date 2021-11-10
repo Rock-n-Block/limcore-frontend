@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { IBuyModal } from 'components/BuyModal';
 
 const useBuyModals = () => {
+  const { t } = useTranslation();
   const [isApproveStart, setApproveStart] = React.useState(false);
   const [isApproveRejected, setApproveRejected] = React.useState(false);
 
@@ -55,17 +57,16 @@ const useBuyModals = () => {
       {
         currentStep: 1,
         allSteps: 2,
-        method: 'approve',
+        method: t('approve'),
         status: 'pending',
-        title: 'Нажмите кнопку «Approve» в расширении Метамаска',
+        title: t('buy.modals.approve.pending.title'),
         subtitle: (
           <>
-            ERC20 tokens are deployed with functionality that allows other smart contracts to move
-            tokens.
-            <br /> By approving the smart contracts, it now has permission to execute the peer to
-            peer swapping behavior on your behalf.
-            <br /> The Spend Limit permission is the total amount of tokens that are able to move
-            when using MetaMask Swap.
+            {t('buy.modals.approve.pending.subtitle1')}
+            <br />
+            {t('buy.modals.approve.pending.subtitle2')}
+            <br />
+            {t('buy.modals.approve.pending.subtitle3')}
           </>
         ),
         isVisible: isApproveStart,
@@ -74,59 +75,57 @@ const useBuyModals = () => {
       {
         currentStep: 1,
         allSteps: 2,
-        method: 'approve',
+        method: t('approve'),
         status: 'rejected',
-        title:
-          'Вы отклонили транзакцию «Approve» в расширении Metamask. Если хотите попробовать еще раз, нажмите на кнопку approve еще раз. Или закройте это окно.',
+        title: t('buy.modals.approve.rejected.title'),
         subtitle: (
           <>
-            ERC20 tokens are deployed with functionality that allows other smart contracts to move
-            tokens.
-            <br /> By approving the smart contracts, it now has permission to execute the peer to
-            peer swapping behavior on your behalf.
-            <br /> The Spend Limit permission is the total amount of tokens that are able to move
-            when using MetaMask Swap.
+            {t('buy.modals.approve.pending.subtitle1')}
+            <br />
+            {t('buy.modals.approve.pending.subtitle2')}
+            <br />
+            {t('buy.modals.approve.pending.subtitle3')}
           </>
         ),
         isVisible: isApproveRejected,
         handleClose: handleCloseApproveRejected,
-        btnText: 'Approve again',
+        btnText: t('buy.modals.approve.rejected.btn'),
         action: handleCloseApproveRejected,
       },
       {
         currentStep: 1,
         allSteps: 2,
-        method: 'Отправить',
+        method: t('send'),
         status: 'pending',
-        title: 'Нажмите кнопку «Send» в расширении Metamask',
-        subtitle: 'Your ETH will be transferred from your wallet to the contract address',
+        title: t('buy.modals.send.pending.title'),
+        subtitle: t('buy.modals.send.pending.subtitle'),
         isVisible: isSendStart,
         handleClose: handleCloseSendStart,
       },
       {
         currentStep: 1,
         allSteps: 2,
-        method: 'Отправить',
+        method: t('send'),
         status: 'rejected',
-        title:
-          'Вы отклонили транзакцию «Send» в расширении Metamask. Если хотите попробовать еще раз, нажмите на кнопку «отправить снова». Или закройте это окно.',
+        title: t('buy.modals.send.rejected.title'),
         isVisible: isSendRejected,
         handleClose: handleCloseSendRejected,
-        btnText: 'Отправить еще раз',
+        btnText: t('buy.modals.send.rejected.btn'),
         action: handleCloseSendRejected,
       },
       {
         currentStep: 2,
         allSteps: 2,
-        method: 'Отправить',
+        method: t('send'),
         status: 'confirmed',
-        title: 'Отправлено',
-        subtitle: 'It takes some time for transaction to get confirmed.',
+        title: t('buy.modals.send.confirmed.title'),
+        subtitle: t('buy.modals.send.confirmed.subtitle'),
         isVisible: isSendEnd,
         handleClose: handleCloseSendEnd,
       },
     ],
     [
+      t,
       isApproveRejected,
       handleCloseApproveRejected,
       isApproveStart,

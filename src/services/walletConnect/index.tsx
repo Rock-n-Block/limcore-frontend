@@ -49,40 +49,35 @@ class Connector extends React.Component<
   }
 
   connect = async () => {
-    if (window.ethereum) {
-      try {
-        const isConnected = await this.state.provider.initWalletConnect(
-          'Binance-Smart-Chain',
-          'WalletConnect',
+    try {
+      const isConnected = await this.state.provider.initWalletConnect(
+        'Binance-Smart-Chain',
+        'WalletConnect',
+      );
+      if (isConnected) {
+        this.state.provider.getAccount().subscribe(
+          (userAccount: any) => {
+            if (this.state.address && userAccount.address !== this.state.address) {
+              this.disconnect();
+            } else {
+              this.setState({
+                address: userAccount.address,
+              });
+            }
+          },
+          () => {
+            alert(
+              `Wrong Network, please select ${
+                is_production ? 'mainnet' : 'testnet'
+              } network in your wallet and try again`,
+            );
+            this.disconnect();
+          },
         );
-        if (isConnected) {
-          this.state.provider.getAccount().subscribe(
-            (userAccount: any) => {
-              if (this.state.address && userAccount.address !== this.state.address) {
-                this.disconnect();
-              } else {
-                this.setState({
-                  address: userAccount.address,
-                });
-              }
-            },
-            (err: any) => {
-              console.error('getAccount wallet connect - get user account err: ', err);
-              if (err.code && err.code === 6) {
-                this.disconnect();
-              }
-              alert(
-                `Wrong Network, please select ${
-                  is_production ? 'mainnet' : 'testnet'
-                } network in your wallet and try again`,
-              );
-            },
-          );
-        }
-      } catch (err) {
-        console.error(err);
-        this.disconnect();
       }
+    } catch (err) {
+      console.error(err);
+      this.disconnect();
     }
   };
 
