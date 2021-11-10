@@ -2,6 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 
 import { BuyWrapper, CountdownContainer, CurrentPrice, CurrentRound, Preview } from 'containers';
+import ContractsAddresses from 'containers/ContractsAddresses';
 
 import style from './main.module.scss';
 
@@ -17,6 +18,7 @@ const Main: React.FC = () => {
         </div>
         <div className={cn(style.box_big, style.box)}>
           <BuyWrapper />
+          <ContractsAddresses />
         </div>
       </div>
     </div>

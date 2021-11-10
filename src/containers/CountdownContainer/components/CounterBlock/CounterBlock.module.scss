@@ -4,19 +4,21 @@
 
 .container {
   @include flexbox(center, initial, column);
-  min-width: 66px; // prevent blinking
   padding: 15px;
+
+  min-width: 66px; // prevent blinking
 
   background-color: $white;
   border: 1px solid $lightgrey-2;
   border-radius: 12px;
 
-  box-shadow: 0px 4px 25px rgba(112, 112, 112, 0.1);
+  box-shadow: 0 4px 25px rgba(112, 112, 112, 0.1);
 }
 
 .number {
   font-size: $font-size-20;
   line-height: $line-height-20;
+
   color: $accent-neutral;
 }
 
@@ -36,6 +38,7 @@
 
   @include b(mobile) {
     padding: 0 5px;
+
     font-size: 30px;
   }
 }

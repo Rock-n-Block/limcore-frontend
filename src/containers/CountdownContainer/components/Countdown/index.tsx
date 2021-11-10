@@ -1,11 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { OptionalClassNameProp } from 'typings';
-import CounterBlock, { ICounterBlockCustomClasses } from '../CounterBlock';
-
 import { useCountdownTimer } from 'hooks';
+import { OptionalClassNameProp } from 'typings';
 import { unixToDaysHoursMinutesSeconds } from './utils';
+
+import CounterBlock, { ICounterBlockCustomClasses } from '../CounterBlock';
 
 import styles from './Countdown.module.scss';
 
