@@ -1,12 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { BuyInput, Currency, Button } from 'components';
+import LinkImg from 'assets/img/icons/currency/limc.svg';
+import UsdtImg from 'assets/img/icons/currency/usdt.svg';
+import { Button, BuyInput, Currency } from 'components';
 
 import style from './Buy.module.scss';
-
-import UsdtImg from 'assets/img/icons/currency/usdt.svg';
-import LinkImg from 'assets/img/icons/currency/limc.svg';
 
 const Buy: React.FC = () => {
   return (

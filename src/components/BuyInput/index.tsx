@@ -1,6 +1,6 @@
 import React from 'react';
-import InputNumber from 'rc-input-number/lib/index';
 import cn from 'classnames';
+import InputNumber from 'rc-input-number/lib';
 
 import style from './BuyInput.module.scss';
 

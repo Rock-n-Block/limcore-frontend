@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { Preview, CurrentRound, CurrentPrice, BuyWrapper } from 'containers';
+import { BuyWrapper, CurrentPrice, CurrentRound, Preview } from 'containers';
 
 import style from './main.module.scss';
 

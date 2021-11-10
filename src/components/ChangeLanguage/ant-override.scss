@@ -1,0 +1,16 @@
+@import 'styles/vars/colors';
+@import 'styles/typography';
+
+.rc-dropdown-menu {
+  & > .rc-dropdown-menu-item {
+    &-active {
+      background-color: $lightgrey-2 !important;
+    }
+
+    &-selected {
+      @extend .text_semibold;
+      color: $primary;
+      background-color: transparent;
+    }
+  }
+}

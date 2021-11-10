@@ -1,22 +1,32 @@
-@import 'styles/mixins/main.scss';
+@import 'styles/mixins/main';
 
-$bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #ffffff 0%, #edf1ff 100%);
+$bg-radial-gradient: radial-gradient(32.57% 95.93% at 0% 100%, #fff 0%, #edf1ff 100%);
+
 .preview {
+  margin-bottom: -140px;
   padding: 115px 0 180px;
+
   background: url(../../assets/img/bg-1.svg), $bg-radial-gradient;
   background-repeat: no-repeat;
   background-position: 100% 0;
-  margin-bottom: -140px;
+
   @include b('mobile') {
-    padding: 160px 0 200px;
     margin-bottom: -190px;
+    padding: 160px 0 200px;
   }
 }
+
 .title {
-  display: block;
   margin: 0 auto;
-  font-weight: bold;
+
+  display: block;
+
   max-width: 600px;
+
+  max-width: 600px;
+
+  font-weight: bold;
+  text-align: center;
   @include b('mobile') {
     max-width: 350px;
   }

@@ -1,0 +1,49 @@
+@import 'styles/vars/colors';
+@import 'styles/mixins/main';
+
+.menuItem {
+  padding: 10px !important;
+
+  cursor: pointer;
+
+  &::after {
+    display: none;
+  }
+}
+
+.menuItemHeader {
+  @include flexbox(center, initial);
+  gap: 10px;
+
+  text-transform: uppercase;
+
+  color: $secondary;
+}
+
+.menuItemContent {
+  @include flexbox(center, initial);
+  padding: 2px 30px 2px 10px;
+
+  text-transform: uppercase;
+
+  color: $secondary;
+  gap: 10px;
+}
+
+.buttonContent {
+  @include flexbox(center, initial);
+  gap: 8px;
+
+  color: $grey-3;
+}
+
+.dropdown {
+  top: -14px;
+
+  overflow: hidden;
+
+  background-color: $white;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 4px 25px rgba(112, 112, 112, 0.1);
+}

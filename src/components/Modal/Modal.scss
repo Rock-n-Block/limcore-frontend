@@ -1,39 +1,53 @@
 .modal {
-  z-index: 100;
   position: absolute;
+  z-index: 100;
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -50%, 0);
-  max-width: 600px;
+
   overflow: hidden;
+
+  max-width: 600px;
+
+  transform: translate3d(-50%, -50%, 0);
+
   &-mask {
     position: fixed;
+    z-index: 1000;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
-    z-index: 1000;
+    bottom: 0;
+
     height: 100%;
+
     background-color: #00000073;
   }
+
   &-wrap {
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
+    bottom: 0;
+
     overflow: auto;
+
     outline: 0;
   }
+
   &-close {
     position: absolute;
-    width: 40px;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    height: 40px;
-    padding: 0;
     top: 0;
     right: 0;
+
+    padding: 0;
+
+    width: 40px;
+    height: 40px;
+
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
   }
 }

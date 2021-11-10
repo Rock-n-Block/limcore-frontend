@@ -6,14 +6,17 @@
     @include flexbox(center, flex-start, column-reverse);
   }
 }
+
 .box {
   width: 100%;
+
   &_mini {
     max-width: 340px;
     @include b('mobile') {
       max-width: 100%;
     }
   }
+
   &_big {
     max-width: 640px;
     @include b('mobile') {

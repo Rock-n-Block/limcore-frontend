@@ -1,0 +1,49 @@
+@import 'styles/vars/media';
+@import 'styles/vars/colors';
+@import 'styles/mixins/main';
+
+$header-height: 70px;
+
+.header {
+  @include flexbox(initial, center);
+}
+
+.container {
+  position: fixed;
+  @include flexbox(center, space-between);
+  height: $header-height;
+  width: 100%;
+  max-width: 1040px;
+  padding: 0 20px;
+
+  @include b(tablet) {
+    position: sticky;
+    padding: 0 10px;
+
+    background-color: $white;
+  }
+}
+
+.leftBlock {
+  @include flexbox(center, space-between);
+
+  @include b(tablet) {
+    width: 100%;
+  }
+}
+
+.rightBlock {
+  @include flexbox();
+  gap: 20px;
+
+  @include b(tablet) {
+    position: absolute;
+    top: $header-height + 20px;
+    @include flexbox(center, center, row-reverse);
+    width: 100%;
+  }
+}
+
+.backButton {
+  margin-right: 22px;
+}

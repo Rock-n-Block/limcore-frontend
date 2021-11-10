@@ -1,6 +1,6 @@
 import React from 'react';
-import cn from 'classnames';
 import BigNumber from 'bignumber.js/bignumber';
+import cn from 'classnames';
 
 import { Progress } from 'components';
 

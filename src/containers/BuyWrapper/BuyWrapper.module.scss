@@ -1,12 +1,19 @@
 @import 'styles/mixins/main.scss';
+
 .title {
   margin-bottom: 30px;
+
   @include b('mobile') {
     margin-bottom: 15px;
   }
 }
+
 .connect {
-  background: radial-gradient(32.57% 95.93% at 0% 100%, #ffffff 0%, #edf1ff 100%);
   padding: 50px;
+
+  @include flexbox(center, initial, column);
+  gap: 26px;
+
+  background: radial-gradient(32.57% 95.93% at 0% 100%, #fff 0%, #edf1ff 100%);
   border-radius: 14px;
 }

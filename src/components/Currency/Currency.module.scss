@@ -4,19 +4,25 @@
 .currency {
   @include flexbox(center, center);
   padding: 12px;
+
   border-radius: 14px;
 }
+
 .img {
   @include flexbox(center, center);
+  margin-right: 6px;
+
   width: 32px;
   height: 32px;
+
   background: $white;
   border-radius: 12px;
-  margin-right: 6px;
 }
+
 .gray {
   background: $lightgrey-6;
 }
+
 .blue {
   background: #4a70f8;
 }

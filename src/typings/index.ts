@@ -1,5 +1,8 @@
 import { INetwork, IProvider, ISettings } from '@amfi/connect-wallet/dist/interface';
 
+export interface OptionalClassNameProp {
+  className?: string;
+}
 export interface IConnectWallet {
   network: INetwork;
   provider: {

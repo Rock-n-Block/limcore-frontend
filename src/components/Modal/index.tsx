@@ -2,9 +2,9 @@ import React from 'react';
 import Dialog from 'rc-dialog/lib';
 import { IDialogPropTypes } from 'rc-dialog/lib/IDialogPropTypes';
 
-import './Modal.scss';
-
 import closeIcon from 'assets/img/icons/modal-close.svg';
+
+import './Modal.scss';
 
 interface IModal extends IDialogPropTypes {
   handleClose: () => void;

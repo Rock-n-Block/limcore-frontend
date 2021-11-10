@@ -1,0 +1,97 @@
+@import 'styles/mixins/main';
+
+// $font-size-1: 60px;
+// $font-size-2: 44px;
+// $font-size-3: 32px;
+// $font-size-30: 30px;
+// $font-size-4: 24px;
+// $font-size-5: 22px;
+// $font-size-6: 20px;
+// $font-size-7: 18px;
+// $font-size-8: 16px;
+// $font-size-9: 12px;
+
+$font-size-14: 14px;
+$line-height-14: 22px;
+
+.text {
+  &_14 {
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+  }
+}
+
+h1,
+.h1 {
+  font-size: 46px;
+  line-height: 64px;
+
+  @include b('mobile') {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+
+h2,
+.h2 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+h3,
+.h3 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.text {
+  // Text Weights
+  &_light {
+    font-weight: 300;
+  }
+
+  &_normal {
+    font-weight: 400;
+  }
+
+  &_medium {
+    font-weight: 500;
+  }
+
+  &_semibold {
+    font-weight: 600;
+  }
+
+  &_bold {
+    font-weight: 700;
+  }
+
+  // Text Colors
+  &_blue {
+    color: $accent-neutral;
+  }
+
+  &_white {
+    color: $white;
+  }
+
+  // Text Sizes
+  &_sm {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  &_md {
+    font-size: $font-size-14;
+    line-height: 20px;
+  }
+
+  // Miscellaneous
+  &_center {
+    text-align: center;
+  }
+
+  &_upper {
+    text-transform: uppercase;
+  }
+}

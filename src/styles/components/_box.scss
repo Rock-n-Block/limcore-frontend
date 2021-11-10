@@ -1,19 +1,24 @@
 .box {
-  border: 1px solid $lightgrey-1;
-  box-shadow: $box-shadow;
-  border-radius: 14px;
   padding: 40px 30px;
+
   width: 100%;
+
   background: $white;
+  background: $white;
+  border: 1px solid $lightgrey-1;
+  border-radius: 14px;
+  box-shadow: $box-shadow;
   @include b('mobile') {
     padding: 20px;
   }
+
   & + & {
     margin-top: 15px;
     @include b('mobile') {
       margin-top: 10px;
     }
   }
+
   &_main {
     @extend .box;
     padding: 40px 70px 30px;

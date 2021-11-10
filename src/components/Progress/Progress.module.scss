@@ -1,26 +1,35 @@
 @import 'styles/vars/colors';
 
 .progress {
+  position: relative;
+
+  overflow: hidden;
+
   width: 100%;
   height: 11px;
-  border-radius: 12px;
+
   background: rgba($lightgrey-3, 0.5);
-  overflow: hidden;
-  position: relative;
+  border-radius: 12px;
+
   &_thumb {
-    height: 100%;
     width: 50%;
+    height: 100%;
+
     background: $accent-neutral;
   }
 }
+
 .sectors {
   position: absolute;
+  top: 0;
+
+  display: grid;
+
   width: 100%;
   height: 100%;
-  display: grid;
   grid-template-columns: repeat(7, 1fr);
-  top: 0;
 }
+
 .sector {
   & + & {
     border-left: 2px solid #fff;
