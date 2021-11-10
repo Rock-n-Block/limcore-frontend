@@ -21,6 +21,7 @@
 
   &_main {
     @extend .box;
+    border-color: $accent-neutral;
     padding: 40px 70px 30px;
     @include b('mobile') {
       padding: 20px 10px;
@@ -32,5 +33,10 @@
     @include b('mobile') {
       padding: 20px;
     }
+  }
+  &_toast {
+    @extend .box;
+    border-color: $accent-neutral;
+    padding: 19px 42px 19px 19px;
   }
 }

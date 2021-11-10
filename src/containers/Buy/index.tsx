@@ -1,15 +1,20 @@
 import React from 'react';
 import cn from 'classnames';
+import { toast } from 'react-toastify';
 
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
-import { Button, BuyInput, Currency, BuyModal } from 'components';
+import { Button, BuyInput, Currency, BuyModal, SuccessToast } from 'components';
 import { useBuyModals } from 'hooks';
 
 import style from './Buy.module.scss';
 
 const Buy: React.FC = () => {
   const { modals, handleOpenApproveStart } = useBuyModals();
+
+  React.useEffect(() => {
+    toast(<SuccessToast text="Покупка прошла успешно" />);
+  }, []);
 
   return (
     <div className={style.buy}>

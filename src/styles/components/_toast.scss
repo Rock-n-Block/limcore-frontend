@@ -1,0 +1,10 @@
+.Toastify {
+  &__toast {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    &-body {
+      padding: 0;
+    }
+  }
+}
