@@ -1,14 +1,14 @@
 import React from 'react';
-import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
 
-import { Modal, Button } from '..';
-
-import style from './BuyModal.module.scss';
-
-import RejectImg from 'assets/img/icons/status-reject.svg';
 import ConfirmedImg from 'assets/img/icons/status-confimed.svg';
 import PendingImg from 'assets/img/icons/status-pending.svg';
+import RejectImg from 'assets/img/icons/status-reject.svg';
+
+import { Button, Modal } from '..';
+
+import style from './BuyModal.module.scss';
 
 export interface IBuyModal {
   isVisible: boolean;
@@ -47,23 +47,23 @@ const BuyModal: React.FC<IBuyModal> = ({
       </div>
       <div className={style.status}>
         <div className={style.status_box}>
-          {status === 'rejected' ? <img src={RejectImg} alt={t(status)} /> : null}
-          {status === 'confirmed' ? <img src={ConfirmedImg} alt={t(status)} /> : null}
-          {status === 'pending' ? (
+          {status === 'rejected' && <img src={RejectImg} alt={t(status)} />}
+          {status === 'confirmed' && <img src={ConfirmedImg} alt={t(status)} />}
+          {status === 'pending' && (
             <img src={PendingImg} className={style.status_pending} alt={t(status)} />
-          ) : null}
-          {status === 'rejected' || status === 'pending' ? (
+          )}
+          {(status === 'rejected' || status === 'pending') && (
             <div className={cn(style.status_text, 'text_sm text_gray')}>{t(status)}</div>
-          ) : null}
+          )}
         </div>
       </div>
       <div className={cn(style.title, 'text_center text_blue h2 text_bold')}>{title}</div>
       {subtitle ? <div className={cn(style.subtitle, 'text_sm')}>{subtitle}</div> : null}
-      {action && btnText ? (
-        <Button onClick={action} className={style.btn}>
+      {action && btnText && (
+        <Button className={style.btn} onClick={action}>
           {btnText}
         </Button>
-      ) : null}
+      )}
     </Modal>
   );
 };

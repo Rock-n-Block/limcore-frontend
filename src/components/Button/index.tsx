@@ -1,32 +1,38 @@
 import React, { useMemo } from 'react';
 import cn from 'classnames';
 
+import PendingImg from 'assets/img/icons/status-pending.svg';
 import { Icon } from 'components';
+import { OptionalClassNameProp } from 'typings';
 
 import styles from './Button.module.scss';
 
-type IButtonSchemaColor = 'primary';
-interface IButtonProps {
+type IButtonSchemaColor = 'nostyle' | 'primary' | 'buyPrimary' | 'buySecondary';
+interface IButtonProps extends OptionalClassNameProp {
   color?: IButtonSchemaColor;
-  prefix?: string | JSX.Element;
+  prefix?: string;
   outline?: boolean;
+  loading?: boolean;
+  loadingText?: string;
   customClassNames?: {
+    content?: string;
     prefix?: string;
     prefixIcon?: string;
     icon?: string;
-    button?: string;
   };
 }
 
-const getColorSchema = (schemaName: IButtonSchemaColor) => {
+const getColorSchema = (schemaName?: IButtonSchemaColor) => {
   switch (schemaName) {
-    case 'primary':
-    default: {
+    case 'primary': {
       return {
         button: styles.buttonPrimary,
         prefix: styles.prefixPrimary,
         content: cn(styles.contentPrimary, 'text_14', 'text_semibold'),
       };
+    }
+    default: {
+      return {};
     }
   }
 };
@@ -35,7 +41,18 @@ const Button: React.FC<
   IButtonProps &
     React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 > = React.memo(
-  ({ children, color = 'primary', outline, prefix, customClassNames = {}, ...props }) => {
+  ({
+    className,
+    children,
+    color,
+    outline,
+    prefix,
+    disabled = false,
+    loading = false,
+    loadingText,
+    customClassNames = {},
+    ...props
+  }) => {
     const colorSchema = getColorSchema(color);
 
     const prefixEl = useMemo(() => {
@@ -50,13 +67,14 @@ const Button: React.FC<
       <button
         className={cn(
           styles.button,
-          customClassNames.button,
+          className,
           {
             [styles.buttonOutline]: outline,
           },
           colorSchema.button,
         )}
         type="button"
+        disabled={disabled || loading}
         {...props}
       >
         <>
@@ -65,7 +83,10 @@ const Button: React.FC<
               {prefixEl}
             </div>
           )}
-          <div className={cn(styles.content, colorSchema.content)}>{children}</div>
+          {loading && <Icon className={styles.pending}>{PendingImg}</Icon>}
+          <div className={cn(styles.content, customClassNames.content, colorSchema.content)}>
+            {loading ? `${loadingText || 'In progress...'}` : children}
+          </div>
         </>
       </button>
     );

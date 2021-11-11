@@ -1,13 +1,22 @@
-@import 'styles/vars/media';
-@import 'styles/vars/colors';
 @import 'styles/mixins/main';
-
-$header-height: 70px;
+@import 'styles/variables';
 
 .header {
   @include flexbox(initial, center);
   position: fixed;
+  z-index: 1;
+
   width: 100%;
+
+  transition: background-color 0.2s ease-out;
+
+  @include b(tablet) {
+    background-color: $white;
+  }
+
+  &-scroll {
+    background-color: $white;
+  }
 }
 
 .container {
@@ -18,8 +27,6 @@ $header-height: 70px;
     position: sticky;
 
     padding: 0 10px;
-
-    background-color: $white;
   }
 }
 
@@ -32,14 +39,8 @@ $header-height: 70px;
 }
 
 .rightBlock {
-  @include flexbox();
-  gap: 20px;
-
   @include b(tablet) {
-    position: absolute;
-    top: $header-height + 20px;
-    @include flexbox(center, center, row-reverse);
-    width: 100%;
+    display: none;
   }
 }
 

@@ -1,8 +1,10 @@
 .Toastify {
   &__toast {
+    padding: 0;
+
     background: transparent;
     box-shadow: none;
-    padding: 0;
+
     &-body {
       padding: 0;
     }

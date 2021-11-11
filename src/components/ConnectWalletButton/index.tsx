@@ -8,15 +8,9 @@ import { useWalletConnectorContext } from 'services';
 
 import styles from './connect-wallet-button.module.scss';
 
-type IConnectWalletButtonProps = {
-  userAddress?: string;
-} & React.ComponentProps<typeof Button>;
+type IConnectWalletButtonProps = React.ComponentProps<typeof Button>;
 
-const ConnectWalletButton: React.FC<IConnectWalletButtonProps> = ({
-  userAddress = '',
-  onClick,
-  ...props
-}) => {
+const ConnectWalletButton: React.FC<IConnectWalletButtonProps> = ({ onClick, ...props }) => {
   const { address, connect } = useWalletConnectorContext();
   const { t } = useTranslation();
 
@@ -24,13 +18,15 @@ const ConnectWalletButton: React.FC<IConnectWalletButtonProps> = ({
 
   return (
     <Button
+      className={styles.button}
       outline
+      color="primary"
       prefix={shieldIcon}
-      customClassNames={{ button: styles.button, prefix: styles.icon }}
+      customClassNames={{ prefix: styles.icon }}
       onClick={hasConnectedWallet ? onClick : connect}
       {...props}
     >
-      {hasConnectedWallet ? addressShortener(userAddress) : t('connect trust wallet')}
+      {hasConnectedWallet ? addressShortener(address) : t('connect trust wallet')}
     </Button>
   );
 };

@@ -1,5 +1,6 @@
-@import 'styles/vars/colors';
 @import 'styles/mixins/main';
+@import 'styles/vars/colors';
+@import 'styles/typography';
 
 .balance {
   margin-bottom: 20px;
@@ -13,8 +14,23 @@
   }
 }
 
-.btn {
-  margin: 30px auto 0;
+.pasteButton {
+  font-size: $font-size-14;
 
-  display: block;
+  background-color: $lightgrey-6;
+}
+
+.buyButton {
+  margin: 30px auto 0;
+  padding: 23px 95px;
+
+  // display: block;
+  font-size: $font-size-14;
+
+  background-color: $accent-neutral;
+  border-radius: 14px;
+}
+
+.gray {
+  background: $lightgrey-6;
 }

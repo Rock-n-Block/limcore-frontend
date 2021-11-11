@@ -35,16 +35,17 @@ body,
 }
 
 .content {
-  flex-grow: 1;
+  padding-bottom: 50px;
 
   width: 100%;
-  padding-bottom: 50px;
+  flex-grow: 1;
 }
 
 .container {
   margin: 0 auto;
   padding-right: 20px;
   padding-left: 20px;
+
   width: 100%;
 
   max-width: 1040px;
