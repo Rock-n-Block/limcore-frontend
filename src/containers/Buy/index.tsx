@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import cn from 'classnames';
+import BigNumber from 'bignumber.js/bignumber';
 
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
 import { Button, BuyInput, BuyModal, Currency, SuccessToast } from 'components';
 import { useBuyModals, useBalance } from 'hooks';
-import { useWalletConnectorContext } from 'services';
+import { useWalletConnectorContext, WalletService } from 'services';
 import { tokenNames, contracts, is_production } from 'config';
 import { TNullable } from 'typings';
 
@@ -32,6 +33,7 @@ const Buy: React.FC = () => {
   const [receiverAddress, setReceiverAddress] = useState<number | string>();
 
   const [allowance, setAllowance] = React.useState(false);
+  const [limcPrice, setLimcPrice] = React.useState(0);
 
   React.useEffect(() => {
     toast(<SuccessToast text={t('buy.success')} />);
@@ -83,9 +85,30 @@ const Buy: React.FC = () => {
     }
   }, [allowance, handleApprove]);
 
+  const handleGetLimcPrice = React.useCallback(async () => {
+    try {
+      const result = await walletService.connectWallet.Contract('SALE').methods.price().call();
+
+      setLimcPrice(+WalletService.weiToEth(result));
+    } catch (err) {
+      console.log(err, 'get price');
+    }
+  }, [walletService.connectWallet]);
+
+  const limcAmount = React.useMemo(() => {
+    if (tokenAmount && limcPrice) {
+      return new BigNumber(tokenAmount).dividedBy(limcPrice).toFixed(18).toString();
+    }
+    return 0;
+  }, [tokenAmount, limcPrice]);
+
   React.useEffect(() => {
     handleCheckUsdtAllowance();
   }, [handleCheckUsdtAllowance]);
+
+  React.useEffect(() => {
+    handleGetLimcPrice();
+  }, [handleGetLimcPrice]);
 
   return (
     <div className={style.buy}>
@@ -106,11 +129,13 @@ const Buy: React.FC = () => {
         placeholder="10"
         prefix={<Currency img={UsdtImg} symbol={tokenUsdt.symbol} />}
         onChange={handleChangeTokenAmount}
+        value={tokenAmount || ''}
       />
       <BuyInput
         title={t('buy.input2')}
         readonly
         prefix={<Currency img={LinkImg} symbol={tokenLimc.symbol} bg="gray" />}
+        value={limcAmount}
       />
       <BuyInput
         title={t('buy.input3')}
