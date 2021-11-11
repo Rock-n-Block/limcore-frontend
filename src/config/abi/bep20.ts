@@ -1,5 +1,9 @@
 export default [
-  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+  {
+    inputs: [{ internalType: 'uint256', name: '_stageOneUnlockTime', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+  },
   {
     anonymous: false,
     inputs: [
@@ -30,6 +34,23 @@ export default [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'value', type: 'uint256' },
+    ],
+    name: 'TransferLocked',
+    type: 'event',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'unlockTime', type: 'uint256' }],
+    name: 'advanceStage',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },
       { internalType: 'address', name: 'spender', type: 'address' },
@@ -57,6 +78,27 @@ export default [
     type: 'function',
   },
   {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'balanceOfLocked',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'balanceOfSum',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'currentStage',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'decimals',
     outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
@@ -74,6 +116,55 @@ export default [
     type: 'function',
   },
   {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'disableDoNotTriggerLockupWhenTo',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'disableLockup',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'disableTriggerLockupWhenFrom',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'doNotTriggerLockupWhenTo',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'enableDoNotTriggerLockupWhenTo',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'enableLockup',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'enableTriggerLockupWhenFrom',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'addedValue', type: 'uint256' },
@@ -85,7 +176,27 @@ export default [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
+    ],
+    name: 'locks',
+    outputs: [
+      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'uint256', name: 'buyTime', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'lockupEnabled',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'account', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'mint',
@@ -112,6 +223,13 @@ export default [
     name: 'renounceOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'stageUnlockTime',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -152,6 +270,20 @@ export default [
   {
     inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'triggerLockupWhenFrom',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'unlock',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

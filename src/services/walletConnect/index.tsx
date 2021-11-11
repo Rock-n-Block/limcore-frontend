@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import { is_production } from 'config';
+import { is_production, contracts } from 'config';
 
 import { WalletConnect } from '..';
 
@@ -63,6 +63,31 @@ class Connector extends React.Component<
               this.setState({
                 address: userAccount.address,
               });
+
+              const promises: Array<Promise<any>> = contracts.names.map((contract) => {
+                const { address, abi } = contracts.params[contract][
+                  is_production ? 'mainnet' : 'testnet'
+                ];
+
+                return this.state.provider.connectWallet.addContract({
+                  name: contract,
+                  address,
+                  abi,
+                });
+              });
+
+              Promise.all(promises)
+                .then(() => {
+                  this.state.provider.connectWallet
+                    .Contract('LIMC')
+                    .methods.balanceOf(userAccount.address)
+                    .call()
+                    .then((res: string) => {
+                      console.log(res, 'balance');
+                    })
+                    .catch((err: any) => console.log(err, 'balance'));
+                })
+                .catch(() => this.disconnect());
             }
           },
           () => {

@@ -1,6 +1,6 @@
 import { IConnectWallet, IContracts } from 'typings';
 
-import { erc20Abi } from './abi';
+import { saleAbi, bep20Abi } from './abi';
 import { is_production } from './constants';
 
 export * from './constants';
@@ -43,7 +43,7 @@ export const chains: {
             rpc: {
               [is_production ? 56 : 97]: is_production
                 ? 'https://bsc-dataseed.binance.org/'
-                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
+                : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
             },
             chainId: is_production ? 56 : 97,
           },
@@ -68,17 +68,27 @@ export const connectWallet = (chainName: string): IConnectWallet => {
 
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
-  names: [],
+  names: ['SALE', 'LIMC'],
   decimals: 18,
   params: {
-    TOKEN: {
+    SALE: {
       mainnet: {
         address: '',
-        abi: erc20Abi,
+        abi: saleAbi,
       },
       testnet: {
+        address: '0x50Ff35141A3496d3A34Cda29bF7d0c69D549FfC0',
+        abi: saleAbi,
+      },
+    },
+    LIMC: {
+      mainnet: {
         address: '',
-        abi: erc20Abi,
+        abi: bep20Abi,
+      },
+      testnet: {
+        address: '0xaBAe98D4DFCbdBe65B527A3b33BD035C6ed45052',
+        abi: bep20Abi,
       },
     },
   },
