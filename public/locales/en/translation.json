@@ -65,5 +65,8 @@
         }
       }
     }
-  }
+  },
+  "wallet": "Wallet",
+  "connected to trust wallet": "Connected to Trust Wallet",
+  "disconnect": "Disconnect"
 }
