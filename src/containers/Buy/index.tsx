@@ -55,7 +55,13 @@ const Buy: React.FC = () => {
   const handleCheckUsdtAllowance = React.useCallback(async () => {
     if (tokenAmount && address) {
       try {
-        const result = await walletService.checkTokenAllowance(tokenNames.USDT, 18, +tokenAmount);
+        const result = await walletService.checkTokenAllowance(
+          tokenNames.USDT,
+          18,
+          +tokenAmount,
+          contracts.params.SALE[is_production ? 'mainnet' : 'testnet'].address,
+          address,
+        );
         setAllowance(result);
       } catch (err) {
         console.log(err, 'check allowance');
