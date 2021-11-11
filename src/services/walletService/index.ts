@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import Web3 from 'web3';
 
-import { connectWallet as connectWalletConfig, contracts, is_production } from 'config';
+import { connectWallet as connectWalletConfig, contracts, is_production, tokenNames } from 'config';
 
 export class WalletService {
   public connectWallet: ConnectWallet;
@@ -42,49 +42,17 @@ export class WalletService {
   }
 
   public Web3(): Web3 {
+    console.log(this.connectWallet.currentWeb3());
+    debugger;
     return this.connectWallet.currentWeb3();
-  }
-
-  public async getTokenBalance(contractAbi: string) {
-    const contract = this.connectWallet.getContract({
-      address: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].address,
-      abi: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].abi,
-    });
-
-    return contract.methods.balanceOf(this.walletAddress).call();
   }
 
   public setAccountAddress(address: string) {
     this.walletAddress = address;
   }
 
-  async checkNftTokenAllowance(tokenAddress: string) {
-    const contract = this.connectWallet.getContract({
-      address: tokenAddress,
-      abi: contracts.params.BEP20[is_production ? 'mainnet' : 'testnet'].abi,
-    });
-
-    const result = await contract.methods
-      .isApprovedForAll(
-        this.walletAddress,
-        contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
-      )
-      .call();
-
-    return result;
-  }
-
   public getAccount(): Observable<IConnect | IError> {
     return this.connectWallet.getAccounts();
-  }
-
-  getWethBalance() {
-    const contractAbi = 'WETH';
-    const contract = this.connectWallet.getContract({
-      address: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].address,
-      abi: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].abi,
-    });
-    return contract.methods.balanceOf(this.walletAddress).call();
   }
 
   static getMethodInterface(abi: Array<any>, methodName: string) {
@@ -138,27 +106,14 @@ export class WalletService {
     });
   }
 
-  async totalSupply(tokenAddress: string, abi: Array<any>, tokenDecimals: number) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const contract = this.connectWallet.getContract({ address: tokenAddress, abi });
-    const totalSupply = await contract.methods.totalSupply().call();
-
-    return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
-  }
-
   async checkTokenAllowance(
-    contractName: string,
+    contractName: tokenNames,
     tokenDecimals: number,
+    tokenAmount: number,
     approvedAddress?: string,
     walletAddress?: string,
   ) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const contract = this.connectWallet.getContract({
-      address: contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address,
-      abi: contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].abi,
-    });
+    const contract = this.connectWallet.Contract(contractName);
     const walletAdr = walletAddress || this.walletAddress;
 
     try {
@@ -170,17 +125,11 @@ export class WalletService {
         )
         .call();
 
-      const totalSupply = await this.totalSupply(
-        contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address,
-        contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].abi,
-        tokenDecimals,
-      );
-
       result =
         result === '0'
           ? null
           : +new BigNumber(result).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
-      if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
+      if (result && new BigNumber(result).minus(tokenAmount).isPositive()) {
         return true;
       }
       return false;
@@ -190,7 +139,7 @@ export class WalletService {
   }
 
   async approveToken(
-    contractName: string,
+    contractName: tokenNames,
     tokenDecimals: number,
     approvedAddress?: string,
     walletAddress?: string,

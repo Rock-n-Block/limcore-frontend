@@ -8,33 +8,84 @@ import UsdtImg from 'assets/img/icons/currency/usdt.svg';
 import { Button, BuyInput, BuyModal, Currency, SuccessToast } from 'components';
 import { useBuyModals, useBalance } from 'hooks';
 import { useWalletConnectorContext } from 'services';
+import { tokenNames, contracts, is_production } from 'config';
+import { TNullable } from 'typings';
 
 import style from './Buy.module.scss';
 
 const tokenLimc = {
-  symbol: 'LIMC',
+  symbol: tokenNames.LIMC,
 };
 const tokenUsdt = {
-  symbol: 'USDT',
+  symbol: tokenNames.USDT,
 };
 
 const Buy: React.FC = () => {
-  const { address } = useWalletConnectorContext();
+  const { address, walletService } = useWalletConnectorContext();
   const { t } = useTranslation();
   const { modals, handleOpenApproveStart } = useBuyModals();
-  const [addressToSendValue, setAddressToSendValue] = useState<number | string>();
 
   const [limcBalance] = useBalance(address, 'LIMC');
   const [usdtBalance] = useBalance(address, 'USDT');
+
+  const [tokenAmount, setTokenAmount] = React.useState<TNullable<number | string>>(null);
+  const [receiverAddress, setReceiverAddress] = useState<number | string>();
+
+  const [allowance, setAllowance] = React.useState(false);
 
   React.useEffect(() => {
     toast(<SuccessToast text={t('buy.success')} />);
   }, [t]);
 
-  const handlePaste = async () => {
+  const handlePaste = React.useCallback(async () => {
     const clipboardContent = await navigator.clipboard.readText();
-    setAddressToSendValue(clipboardContent);
-  };
+    setReceiverAddress(clipboardContent);
+  }, []);
+
+  const handleChangeTokenAmount = React.useCallback((value: string | number) => {
+    setTokenAmount(value);
+  }, []);
+
+  const handleChangeReceiverAddress = React.useCallback((value: string | number) => {
+    setTokenAmount(value);
+  }, []);
+
+  const handleCheckUsdtAllowance = React.useCallback(async () => {
+    if (tokenAmount && address) {
+      try {
+        const result = await walletService.checkTokenAllowance(tokenNames.USDT, 18, +tokenAmount);
+        setAllowance(result);
+      } catch (err) {
+        console.log(err, 'check allowance');
+      }
+    }
+  }, [address, tokenAmount, walletService]);
+
+  const handleApprove = React.useCallback(async () => {
+    try {
+      handleOpenApproveStart();
+      await walletService.approveToken(
+        tokenNames.USDT,
+        18,
+        contracts.params.SALE[is_production ? 'mainnet' : 'testnet'].address,
+        address,
+      );
+    } catch (err) {
+      console.log(err, 'approve');
+    }
+  }, [handleOpenApproveStart, walletService, address]);
+
+  const handleBuy = React.useCallback(() => {
+    if (allowance) {
+      console.log('buy');
+    } else {
+      handleApprove();
+    }
+  }, [allowance, handleApprove]);
+
+  React.useEffect(() => {
+    handleCheckUsdtAllowance();
+  }, [handleCheckUsdtAllowance]);
 
   return (
     <div className={style.buy}>
@@ -54,6 +105,7 @@ const Buy: React.FC = () => {
         title={t('buy.input1')}
         placeholder="10"
         prefix={<Currency img={UsdtImg} symbol={tokenUsdt.symbol} />}
+        onChange={handleChangeTokenAmount}
       />
       <BuyInput
         title={t('buy.input2')}
@@ -64,7 +116,7 @@ const Buy: React.FC = () => {
         title={t('buy.input3')}
         isNumber={false}
         placeholder="0x0"
-        value={addressToSendValue}
+        value={receiverAddress}
         prefix={
           <Button
             className={cn(style.pasteButton, 'text_blue', 'text_upper')}
@@ -73,11 +125,12 @@ const Buy: React.FC = () => {
             {t('paste')}
           </Button>
         }
-        onChange={(val: string | number) => setAddressToSendValue(val)}
+        onChange={handleChangeReceiverAddress}
       />
       <Button
         className={cn(style.buyButton, 'text_white', 'text_bold', 'text_upper')}
-        onClick={handleOpenApproveStart}
+        onClick={handleBuy}
+        disabled={!tokenAmount}
       >
         {t('buy.btn')}
       </Button>

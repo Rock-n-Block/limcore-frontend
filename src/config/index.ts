@@ -66,6 +66,11 @@ export const connectWallet = (chainName: string): IConnectWallet => {
   };
 };
 
+export enum tokenNames {
+  LIMC = 'LIMC',
+  USDT = 'USDT',
+}
+
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
   names: ['SALE', 'LIMC', 'USDT'],
