@@ -77,7 +77,6 @@ export class WalletService {
       contracts.params[contract][is_production ? 'mainnet' : 'testnet'].abi,
       method,
     );
-    debugger;
 
     let signature;
     if (transactionMethod) {
