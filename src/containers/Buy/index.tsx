@@ -50,7 +50,7 @@ const Buy: React.FC = () => {
   const [allowance, setAllowance] = React.useState(false);
   const [limcPrice, setLimcPrice] = React.useState(0);
 
-  const [isPaused, setPaused] = React.useState(false);
+  const [isPaused, setPaused] = React.useState(true);
 
   const handlePaste = React.useCallback(async () => {
     const clipboardContent = await navigator.clipboard.readText();
@@ -62,7 +62,7 @@ const Buy: React.FC = () => {
   }, []);
 
   const handleChangeReceiverAddress = React.useCallback((value: string | number) => {
-    setTokenAmount(value);
+    setReceiverAddress(value);
   }, []);
 
   const handleCheckUsdtAllowance = React.useCallback(async () => {

@@ -23,19 +23,37 @@ const BuyInput: React.FC<IBuyInput> = ({
   value,
   onChange = () => {},
 }) => {
+  const handleInputChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+    },
+    [onChange],
+  );
+
   return (
     <div className={style.binput}>
       <div className={style.content}>
         <div className={cn(style.title, 'text_sm')}>{title}</div>
-        <InputNumber
-          className={style.input}
-          value={value}
-          readOnly={readonly}
-          controls={false}
-          placeholder={placeholder}
-          type={isNumber ? 'number' : 'text'}
-          onChange={onChange}
-        />
+        {isNumber ? (
+          <InputNumber
+            className={style.input}
+            value={value}
+            readOnly={readonly}
+            controls={false}
+            placeholder={placeholder}
+            type={isNumber ? 'number' : 'text'}
+            onChange={onChange}
+          />
+        ) : (
+          <input
+            className={style.input}
+            value={value}
+            readOnly={readonly}
+            placeholder={placeholder}
+            type="text"
+            onChange={handleInputChange}
+          />
+        )}
       </div>
       {prefix}
     </div>
