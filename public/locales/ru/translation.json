@@ -65,5 +65,8 @@
         }
       }
     }
-  }
+  },
+  "wallet": "Кошелек",
+  "connected to trust wallet": "Подключен к Trust Wallet",
+  "disconnect": "Отключиться"
 }

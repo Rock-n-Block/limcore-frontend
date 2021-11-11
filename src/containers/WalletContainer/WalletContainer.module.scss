@@ -1,0 +1,63 @@
+@import 'styles/variables';
+@import 'styles/typography';
+
+@mixin box($border-color: $accent-neutral) {
+  border: 1px solid $border-color;
+  box-shadow: $box-shadow;
+  background-color: $white;
+
+  border-radius: 14px;
+}
+
+.container {
+  padding: 20px 20px 30px;
+  min-width: 340px;
+
+  @include box();
+
+  @include b(mobile) {
+    min-width: 270px;
+  }
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+
+  font-size: $font-size-13;
+
+  color: $black;
+}
+
+.addressContainer {
+  @include flexbox(center, space-between);
+  margin-bottom: 40px;
+  padding: 14px;
+
+  background-color: $lightgrey-5;
+  border-radius: 14px;
+}
+
+.address {
+  color: $secondary;
+}
+
+.copyButton {
+  width: 28px;
+  height: 28px;
+
+  background-color: $accent-neutral;
+  border-radius: 4px;
+}
+
+.disconnectButton {
+  padding: 0;
+
+  font-size: $font-size-13;
+  line-height: $line-height-13;
+
+  color: $lightgrey-4;
+}
