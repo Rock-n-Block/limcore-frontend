@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js/bignumber';
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
 import { Button, BuyInput, BuyModal, Currency, SuccessToast } from 'components';
-import { useBuyModals, useBalance } from 'hooks';
+import { useBuyModals, useBalance, useUsdtApprove } from 'hooks';
 import { useWalletConnectorContext, WalletService } from 'services';
 import { tokenNames, contracts, is_production } from 'config';
 import { TNullable } from 'typings';
@@ -47,10 +47,17 @@ const Buy: React.FC = () => {
   const [tokenAmount, setTokenAmount] = React.useState<TNullable<number | string>>(null);
   const [receiverAddress, setReceiverAddress] = useState<number | string>();
 
-  const [allowance, setAllowance] = React.useState(false);
   const [limcPrice, setLimcPrice] = React.useState(0);
 
   const [isPaused, setPaused] = React.useState(true);
+
+  const { allowance, handleCheckUsdtAllowance, handleApprove, isApproving } = useUsdtApprove(
+    address,
+    tokenAmount,
+    handleOpenApproveStart,
+    handleCloseApproveStart,
+    handleOpenApproveRejected,
+  );
 
   const handlePaste = React.useCallback(async () => {
     const clipboardContent = await navigator.clipboard.readText();
@@ -64,47 +71,6 @@ const Buy: React.FC = () => {
   const handleChangeReceiverAddress = React.useCallback((value: string | number) => {
     setReceiverAddress(value);
   }, []);
-
-  const handleCheckUsdtAllowance = React.useCallback(async () => {
-    if (tokenAmount && address) {
-      try {
-        const result = await walletService.checkTokenAllowance(
-          tokenNames.USDT,
-          18,
-          +tokenAmount,
-          contracts.params.SALE[is_production ? 'mainnet' : 'testnet'].address,
-          address,
-        );
-        setAllowance(result);
-      } catch (err) {
-        console.log(err, 'check allowance');
-      }
-    }
-  }, [address, tokenAmount, walletService]);
-
-  const handleApprove = React.useCallback(async () => {
-    try {
-      handleOpenApproveStart();
-      await walletService.approveToken(
-        tokenNames.USDT,
-        18,
-        contracts.params.SALE[is_production ? 'mainnet' : 'testnet'].address,
-        address,
-      );
-      setAllowance(true);
-      handleCloseApproveStart();
-    } catch (err) {
-      handleCloseApproveStart();
-      handleOpenApproveRejected();
-      console.log(err, 'approve');
-    }
-  }, [
-    handleOpenApproveStart,
-    handleOpenApproveRejected,
-    walletService,
-    address,
-    handleCloseApproveStart,
-  ]);
 
   const handleBuy = React.useCallback(() => {
     if (tokenAmount) {
@@ -258,6 +224,7 @@ const Buy: React.FC = () => {
         className={cn(style.buyButton, 'text_white', 'text_bold', 'text_upper')}
         onClick={handleSubmit}
         disabled={!tokenAmount || isPaused}
+        loading={isApproving}
       >
         {t('buy.btn')}
       </Button>

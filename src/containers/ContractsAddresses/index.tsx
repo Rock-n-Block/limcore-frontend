@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import AddressRow from './components/AddressRow';
+import { contracts, is_production } from 'config';
 
 import styles from './ContractsAddresses.module.scss';
-
-// interface IContractsAddressesProps {}
 
 const ContractsAddresses: React.FC = () => {
   const { t } = useTranslation();
@@ -15,12 +14,12 @@ const ContractsAddresses: React.FC = () => {
     () => [
       {
         title: t('contracts.text1'),
-        content: '0x4095309503950395039503...3485uo2225',
+        content: contracts.params.LIMC[is_production ? 'mainnet' : 'testnet'].address,
         isCopyable: true,
       },
       {
         title: t('contracts.text2'),
-        content: '0x4095309503950395039503...3485uo2225',
+        content: contracts.params.SALE[is_production ? 'mainnet' : 'testnet'].address,
         isCopyable: true,
       },
     ],
