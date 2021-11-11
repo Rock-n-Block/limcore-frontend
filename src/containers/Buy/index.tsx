@@ -6,7 +6,8 @@ import cn from 'classnames';
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
 import { Button, BuyInput, BuyModal, Currency, SuccessToast } from 'components';
-import { useBuyModals } from 'hooks';
+import { useBuyModals, useBalance } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 
 import style from './Buy.module.scss';
 
@@ -16,14 +17,15 @@ const tokenLimc = {
 const tokenUsdt = {
   symbol: 'USDT',
 };
-const data = {
-  balance: 3933,
-};
 
 const Buy: React.FC = () => {
+  const { address } = useWalletConnectorContext();
   const { t } = useTranslation();
   const { modals, handleOpenApproveStart } = useBuyModals();
   const [addressToSendValue, setAddressToSendValue] = useState<number | string>();
+
+  const [limcBalance] = useBalance(address, 'LIMC');
+  const [usdtBalance] = useBalance(address, 'USDT');
 
   React.useEffect(() => {
     toast(<SuccessToast text={t('buy.success')} />);
@@ -37,9 +39,15 @@ const Buy: React.FC = () => {
   return (
     <div className={style.buy}>
       <div className={cn(style.balance, 'text_sm')}>
-        <div className={style.balance_text}>{t('buy.balance')}</div>
+        <div className={style.balance_text}>{t('buy.balance', { currency: tokenLimc.symbol })}</div>
         <div className={cn(style.balance_content, 'text_blue')}>
-          {data.balance} {tokenLimc.symbol}
+          {limcBalance} {tokenLimc.symbol}
+        </div>
+      </div>
+      <div className={cn(style.balance, 'text_sm')}>
+        <div className={style.balance_text}>{t('buy.balance', { currency: tokenUsdt.symbol })}</div>
+        <div className={cn(style.balance_content, 'text_blue')}>
+          {usdtBalance} {tokenUsdt.symbol}
         </div>
       </div>
       <BuyInput

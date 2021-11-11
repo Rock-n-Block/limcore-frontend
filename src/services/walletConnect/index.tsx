@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 
 import { is_production, contracts } from 'config';
 
-import { WalletConnect } from '..';
+import { WalletService } from '..';
 
 declare global {
   interface Window {
@@ -14,19 +14,19 @@ declare global {
 const walletConnectorContext = createContext<{
   connect: () => void;
   disconnect: () => void;
-  walletService: WalletConnect;
+  walletService: WalletService;
   address: string;
 }>({
   connect: (): void => {},
   disconnect: (): void => {},
-  walletService: new WalletConnect(),
+  walletService: new WalletService(),
   address: '',
 });
 
 class Connector extends React.Component<
   any,
   {
-    provider: WalletConnect;
+    provider: WalletService;
     address: string;
   }
 > {
@@ -34,7 +34,7 @@ class Connector extends React.Component<
     super(props);
 
     this.state = {
-      provider: new WalletConnect(),
+      provider: new WalletService(),
       address: '',
     };
 
@@ -76,18 +76,7 @@ class Connector extends React.Component<
                 });
               });
 
-              Promise.all(promises)
-                .then(() => {
-                  this.state.provider.connectWallet
-                    .Contract('LIMC')
-                    .methods.balanceOf(userAccount.address)
-                    .call()
-                    .then((res: string) => {
-                      console.log(res, 'balance');
-                    })
-                    .catch((err: any) => console.log(err, 'balance'));
-                })
-                .catch(() => this.disconnect());
+              Promise.all(promises).catch(() => this.disconnect());
             }
           },
           () => {

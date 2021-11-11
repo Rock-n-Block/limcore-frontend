@@ -6,7 +6,7 @@ import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts, is_production } from 'config';
 
-export class WalletConnect {
+export class WalletService {
   public connectWallet: ConnectWallet;
 
   public walletAddress = '';
@@ -106,7 +106,7 @@ export class WalletConnect {
     walletAddress?: string,
     value?: any,
   ) {
-    const transactionMethod = WalletConnect.getMethodInterface(
+    const transactionMethod = WalletService.getMethodInterface(
       contracts.params[contract][is_production ? 'mainnet' : 'testnet'].abi,
       method,
     );
@@ -196,14 +196,14 @@ export class WalletConnect {
     walletAddress?: string,
   ) {
     try {
-      const approveMethod = WalletConnect.getMethodInterface(
+      const approveMethod = WalletService.getMethodInterface(
         contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].abi,
         'approve',
       );
 
       const approveSignature = this.encodeFunctionCall(approveMethod, [
         approvedAddress || walletAddress || this.walletAddress,
-        WalletConnect.calcTransactionAmount(90071992000.5474099, tokenDecimals),
+        WalletService.calcTransactionAmount(90071992000.5474099, tokenDecimals),
       ]);
 
       return this.sendTransaction({

@@ -68,7 +68,7 @@ export const connectWallet = (chainName: string): IConnectWallet => {
 
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
-  names: ['SALE', 'LIMC'],
+  names: ['SALE', 'LIMC', 'USDT'],
   decimals: 18,
   params: {
     SALE: {
@@ -88,6 +88,16 @@ export const contracts: IContracts = {
       },
       testnet: {
         address: '0xaBAe98D4DFCbdBe65B527A3b33BD035C6ed45052',
+        abi: bep20Abi,
+      },
+    },
+    USDT: {
+      mainnet: {
+        address: '',
+        abi: bep20Abi,
+      },
+      testnet: {
+        address: '0x6053E666Fd5bF0B93779B98b502ef13599BD6443',
         abi: bep20Abi,
       },
     },

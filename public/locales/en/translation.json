@@ -32,7 +32,7 @@
     "success": "Successfully bought",
     "title": "You buy LIMC tokens by sending USDT to crowdsale contract",
     "connect": "Connect wallet to buy LIMC",
-    "balance": "Your LIMC balance",
+    "balance": "Your {{currency}} balance",
     "input1": "Send",
     "input2": "Receive LIMC",
     "input3": "LIMC receiver address",
