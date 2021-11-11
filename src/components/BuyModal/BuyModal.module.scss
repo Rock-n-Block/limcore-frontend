@@ -1,4 +1,6 @@
 @import 'styles/mixins/main.scss';
+@import 'styles/vars/colors';
+@import 'styles/typography';
 @import 'styles/animations';
 
 .head {
@@ -42,5 +44,12 @@
 .btn {
   margin: 20px auto 0;
 
-  display: block;
+  padding: 14px;
+
+  font-size: $font-size-14;
+  min-width: 330px;
+
+  background-color: $accent-neutral;
+  border-radius: 14px;
+  @include flexbox();
 }

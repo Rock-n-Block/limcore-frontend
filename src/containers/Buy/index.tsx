@@ -24,10 +24,25 @@ const tokenUsdt = {
 const Buy: React.FC = () => {
   const { address, walletService } = useWalletConnectorContext();
   const { t } = useTranslation();
-  const { modals, handleOpenApproveStart } = useBuyModals();
 
-  const [limcBalance] = useBalance(address, 'LIMC');
-  const [usdtBalance] = useBalance(address, 'USDT');
+  const [txHash, setTxHash] = React.useState('');
+
+  const {
+    modals,
+    handleOpenApproveStart,
+    handleOpenApproveRejected,
+    handleCloseApproveStart,
+    isTriggerApprove,
+    handleOpenSendStart,
+    handleOpenSendEnd,
+    handleOpenSendRejected,
+    handleCloseSendStart,
+    isTriggerBuy,
+    handleCloseSendEnd,
+  } = useBuyModals(txHash);
+
+  const [limcBalance, updateLimcBalance] = useBalance(address, tokenNames.LIMC);
+  const [usdtBalance, updateUsdtBalance] = useBalance(address, tokenNames.USDT);
 
   const [tokenAmount, setTokenAmount] = React.useState<TNullable<number | string>>(null);
   const [receiverAddress, setReceiverAddress] = useState<number | string>();
@@ -35,9 +50,7 @@ const Buy: React.FC = () => {
   const [allowance, setAllowance] = React.useState(false);
   const [limcPrice, setLimcPrice] = React.useState(0);
 
-  React.useEffect(() => {
-    toast(<SuccessToast text={t('buy.success')} />);
-  }, [t]);
+  const [isPaused, setPaused] = React.useState(false);
 
   const handlePaste = React.useCallback(async () => {
     const clipboardContent = await navigator.clipboard.readText();
@@ -78,18 +91,76 @@ const Buy: React.FC = () => {
         contracts.params.SALE[is_production ? 'mainnet' : 'testnet'].address,
         address,
       );
+      setAllowance(true);
+      handleCloseApproveStart();
     } catch (err) {
+      handleCloseApproveStart();
+      handleOpenApproveRejected();
       console.log(err, 'approve');
     }
-  }, [handleOpenApproveStart, walletService, address]);
+  }, [
+    handleOpenApproveStart,
+    handleOpenApproveRejected,
+    walletService,
+    address,
+    handleCloseApproveStart,
+  ]);
 
   const handleBuy = React.useCallback(() => {
+    if (tokenAmount) {
+      handleOpenSendStart();
+
+      walletService
+        .createTransaction(
+          'buy',
+          [
+            contracts.params[tokenNames.USDT][is_production ? 'mainnet' : 'testnet'].address,
+            WalletService.calcTransactionAmount(tokenAmount, 18),
+            receiverAddress || address,
+          ],
+          'SALE',
+        )
+        .on('transactionHash', (hash: string) => {
+          setTxHash(hash);
+          handleCloseSendStart();
+          handleOpenSendEnd();
+        })
+        .then(() => {
+          updateLimcBalance();
+          updateUsdtBalance();
+          handleCloseSendEnd();
+          toast(<SuccessToast text={t('buy.success')} />);
+          setTokenAmount(null);
+        })
+        .catch((err) => {
+          handleCloseSendStart();
+          handleCloseSendEnd();
+          handleOpenSendRejected();
+          console.log(err, 'buy');
+        });
+    }
+  }, [
+    updateLimcBalance,
+    updateUsdtBalance,
+    handleOpenSendStart,
+    t,
+    address,
+    handleCloseSendStart,
+    handleOpenSendEnd,
+    handleOpenSendRejected,
+    tokenAmount,
+    receiverAddress,
+    handleCloseSendEnd,
+    walletService,
+  ]);
+
+  const handleSubmit = React.useCallback(() => {
     if (allowance) {
-      console.log('buy');
+      handleBuy();
     } else {
       handleApprove();
     }
-  }, [allowance, handleApprove]);
+  }, [allowance, handleApprove, handleBuy]);
 
   const handleGetLimcPrice = React.useCallback(async () => {
     try {
@@ -108,6 +179,27 @@ const Buy: React.FC = () => {
     return 0;
   }, [tokenAmount, limcPrice]);
 
+  const handleGetPause = React.useCallback(async () => {
+    try {
+      const result = await walletService.connectWallet.Contract('SALE').methods.paused().call();
+      setPaused(result);
+    } catch (err) {
+      console.log(err, 'get pause');
+    }
+  }, [walletService.connectWallet]);
+
+  React.useEffect(() => {
+    if (isTriggerApprove) {
+      handleApprove();
+    }
+  }, [isTriggerApprove, handleApprove]);
+
+  React.useEffect(() => {
+    if (isTriggerBuy) {
+      handleBuy();
+    }
+  }, [isTriggerBuy, handleBuy]);
+
   React.useEffect(() => {
     handleCheckUsdtAllowance();
   }, [handleCheckUsdtAllowance]);
@@ -115,6 +207,10 @@ const Buy: React.FC = () => {
   React.useEffect(() => {
     handleGetLimcPrice();
   }, [handleGetLimcPrice]);
+
+  React.useEffect(() => {
+    handleGetPause();
+  }, [handleGetPause]);
 
   return (
     <div className={style.buy}>
@@ -160,8 +256,8 @@ const Buy: React.FC = () => {
       />
       <Button
         className={cn(style.buyButton, 'text_white', 'text_bold', 'text_upper')}
-        onClick={handleBuy}
-        disabled={!tokenAmount}
+        onClick={handleSubmit}
+        disabled={!tokenAmount || isPaused}
       >
         {t('buy.btn')}
       </Button>

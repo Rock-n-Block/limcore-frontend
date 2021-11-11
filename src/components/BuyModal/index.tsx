@@ -21,6 +21,7 @@ export interface IBuyModal {
   subtitle?: string | React.ReactElement;
   action?: () => void;
   btnText?: string;
+  link?: string;
 }
 
 const BuyModal: React.FC<IBuyModal> = ({
@@ -32,6 +33,7 @@ const BuyModal: React.FC<IBuyModal> = ({
   status,
   title,
   subtitle,
+  link,
   action,
   btnText,
 }) => {
@@ -59,11 +61,21 @@ const BuyModal: React.FC<IBuyModal> = ({
       </div>
       <div className={cn(style.title, 'text_center text_blue h2 text_bold')}>{title}</div>
       {subtitle ? <div className={cn(style.subtitle, 'text_sm')}>{subtitle}</div> : null}
-      {action && btnText && (
-        <Button className={style.btn} onClick={action}>
+      {action && btnText ? (
+        <Button
+          className={cn(style.btn, 'text_white', 'text_bold', 'text_center')}
+          onClick={action}
+        >
           {btnText}
         </Button>
-      )}
+      ) : null}
+      {link && btnText ? (
+        <a href={link} target="_blank" rel="noreferrer">
+          <Button className={cn(style.btn, 'text_white', 'text_bold', 'text_center')}>
+            {btnText}
+          </Button>
+        </a>
+      ) : null}
     </Modal>
   );
 };

@@ -2,8 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IBuyModal } from 'components/BuyModal';
+import getTxLink from 'utils/getTxLink';
 
-const useBuyModals = () => {
+const useBuyModals = (txHash: string) => {
   const { t } = useTranslation();
   const [isApproveStart, setApproveStart] = React.useState(false);
   const [isApproveRejected, setApproveRejected] = React.useState(false);
@@ -11,6 +12,9 @@ const useBuyModals = () => {
   const [isSendStart, setSendStart] = React.useState(false);
   const [isSendRejected, setSendRejected] = React.useState(false);
   const [isSendEnd, setSendEnd] = React.useState(false);
+
+  const [isTriggerApprove, setTriggerApprove] = React.useState(false);
+  const [isTriggerBuy, setTriggerBuy] = React.useState(false);
 
   const handleOpenApproveStart = React.useCallback(() => {
     setApproveStart(true);
@@ -52,6 +56,22 @@ const useBuyModals = () => {
     setSendEnd(false);
   }, []);
 
+  const handleTriggerApprove = React.useCallback(() => {
+    handleCloseApproveRejected();
+    setTriggerApprove(true);
+    setTimeout(() => {
+      setTriggerApprove(false);
+    }, 100);
+  }, [handleCloseApproveRejected]);
+
+  const handleTriggerBuy = React.useCallback(() => {
+    handleCloseSendRejected();
+    setTriggerBuy(true);
+    setTimeout(() => {
+      setTriggerBuy(false);
+    }, 100);
+  }, [handleCloseSendRejected]);
+
   const modals: () => Array<IBuyModal> = React.useCallback(
     () => [
       {
@@ -90,7 +110,7 @@ const useBuyModals = () => {
         isVisible: isApproveRejected,
         handleClose: handleCloseApproveRejected,
         btnText: t('buy.modals.approve.rejected.btn'),
-        action: handleCloseApproveRejected,
+        action: handleTriggerApprove,
       },
       {
         currentStep: 1,
@@ -111,7 +131,7 @@ const useBuyModals = () => {
         isVisible: isSendRejected,
         handleClose: handleCloseSendRejected,
         btnText: t('buy.modals.send.rejected.btn'),
-        action: handleCloseSendRejected,
+        action: handleTriggerBuy,
       },
       {
         currentStep: 2,
@@ -122,6 +142,8 @@ const useBuyModals = () => {
         subtitle: t('buy.modals.send.confirmed.subtitle'),
         isVisible: isSendEnd,
         handleClose: handleCloseSendEnd,
+        link: getTxLink(txHash),
+        btnText: t('buy.modals.send.tx'),
       },
     ],
     [
@@ -136,6 +158,9 @@ const useBuyModals = () => {
       handleCloseSendRejected,
       isSendEnd,
       handleCloseSendEnd,
+      handleTriggerApprove,
+      txHash,
+      handleTriggerBuy,
     ],
   );
 
@@ -156,6 +181,8 @@ const useBuyModals = () => {
     isSendEnd,
     handleOpenSendEnd,
     handleCloseSendEnd,
+    isTriggerApprove,
+    isTriggerBuy,
   };
 };
 

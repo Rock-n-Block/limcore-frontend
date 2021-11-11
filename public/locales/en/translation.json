@@ -62,7 +62,8 @@
         "confirmed": {
           "title": "Sent",
           "subtitle": "It takes some time for transaction to get confirmed."
-        }
+        },
+        "tx": "View transaction"
       }
     }
   },

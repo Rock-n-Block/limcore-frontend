@@ -64,10 +64,10 @@ export class WalletService {
     return this.Web3().eth.abi.encodeFunctionCall(abi, data);
   }
 
-  async createTransaction(
+  createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX' | 'NFT',
+    contract: 'SALE',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
@@ -77,6 +77,7 @@ export class WalletService {
       contracts.params[contract][is_production ? 'mainnet' : 'testnet'].abi,
       method,
     );
+    debugger;
 
     let signature;
     if (transactionMethod) {

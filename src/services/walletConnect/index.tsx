@@ -52,7 +52,7 @@ class Connector extends React.Component<
     try {
       const isConnected = await this.state.provider.initWalletConnect(
         'Binance-Smart-Chain',
-        'WalletConnect',
+        'MetaMask',
       );
       if (isConnected) {
         this.state.provider.getAccount().subscribe(
