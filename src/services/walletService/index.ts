@@ -17,7 +17,7 @@ export class WalletService {
 
   public async initWalletConnect(
     chainName: string,
-    providerName: 'WalletConnect',
+    providerName: 'WalletConnect' | 'MetaMask',
   ): Promise<boolean> {
     return new Promise((resolve) => {
       const { provider, network, settings } = connectWalletConfig(chainName);
@@ -42,6 +42,7 @@ export class WalletService {
   }
 
   public Web3(): Web3 {
+    console.log(this.connectWallet.currentWeb3());
     return this.connectWallet.currentWeb3();
   }
 
@@ -93,7 +94,6 @@ export class WalletService {
       to: tokenAddress || contracts.params[contract][is_production ? 'mainnet' : 'testnet'].address,
       data: signature || '',
       value: value || '',
-      // type: baseFeePerGas ? '0x2' : '0x0',
     });
   }
 

@@ -63,6 +63,7 @@ class Connector extends React.Component<
               this.setState({
                 address: userAccount.address,
               });
+              this.state.provider.setAccountAddress(userAccount.address);
 
               const promises: Array<Promise<any>> = contracts.names.map((contract) => {
                 const { address, abi } = contracts.params[contract][
