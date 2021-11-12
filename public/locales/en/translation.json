@@ -11,7 +11,7 @@
   },
   "price": {
     "text1": "Current LIMC price",
-    "text2": "Lock-up period is 6 months"
+    "text2": "Lock-up period is {{days}} days"
   },
   "contracts": {
     "title": "Contracts` addresses",

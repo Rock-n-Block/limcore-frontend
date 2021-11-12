@@ -11,7 +11,7 @@
   },
   "price": {
     "text1": "Текущая цена LIMC",
-    "text2": "Lock-up период 6 месяцев"
+    "text2": "Lock-up период {{days}} дней"
   },
   "contracts": {
     "title": "Адреса контрактов",

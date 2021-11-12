@@ -6,9 +6,10 @@ import ContractsAddresses from 'containers/ContractsAddresses';
 import {
   useLimcoreContract,
   useSaleContract,
+  // useSaleContract
 } from 'hooks';
 
-import { getDaysLeftUntilEndTime } from './utils';
+import { getDaysFromSeconds, getDaysLeftUntilEndTime } from './utils';
 
 import style from './main.module.scss';
 import { toast } from 'react-toastify';
@@ -16,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { SuccessToast } from 'components';
 import { toBigNumber } from 'utils';
 import { getBalanceAmountBN } from 'utils/bigNumberFormatters';
+import { Precisions } from 'typings';
 
 interface IStageData {
   currentStage?: string;
@@ -82,7 +84,9 @@ const Main: React.FC = () => {
   const [tokensToSell, setTokensToSell] = useState('0');
   const [isPaused, setIsPaused] = useState(false);
 
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('0');
+
+  const [stageUnlockTime, setStageUnlockTime] = useState(0);
 
   const { fetchStageData } = useFetchStageData();
 
@@ -107,12 +111,29 @@ const Main: React.FC = () => {
       }
 
       if (stageData.price !== undefined) {
-        setPrice(toBigNumber(stageData.price).toNumber());
+        setPrice(stageData.price);
       }
     };
 
     fetchData();
   }, [fetchStageData]);
+
+  const { getStageUnlockTime } = useLimcoreContract();
+
+  const fetchStageUnlockTime = useCallback(async () => {
+    if (currentStage !== -1) {
+      try {
+        const stageUnlockTimeRaw = await getStageUnlockTime(String(currentStage));
+        setStageUnlockTime(Number(stageUnlockTimeRaw));
+      } catch (e) {
+        console.error('getStageUnlockTime');
+      }
+    }
+  }, [currentStage, getStageUnlockTime]);
+
+  useEffect(() => {
+    fetchStageUnlockTime();
+  }, [fetchStageUnlockTime]);
 
   useEffect(() => {
     if (isPaused) {
@@ -124,6 +145,14 @@ const Main: React.FC = () => {
     () => getDaysLeftUntilEndTime(endTime),
     [endTime],
   );
+
+  const unlockTimeDays = useMemo(() => {
+    return getDaysFromSeconds(stageUnlockTime);
+  }, [stageUnlockTime]);
+
+  const priceAsString = useMemo(() => {
+    return getBalanceAmountBN(toBigNumber(price)).toFixed(Precisions.fiat);
+  }, [price]);
 
   const tokensSoldBN = useMemo(() => {
     return getBalanceAmountBN(toBigNumber(tokensSold));
@@ -144,7 +173,7 @@ const Main: React.FC = () => {
             soldTokens={tokensSoldBN}
             allTokens={tokensToSellBN}
           />
-          <CurrentPrice price={price} />
+          <CurrentPrice price={priceAsString} unlockTimeDays={unlockTimeDays} />
           <CountdownContainer />
         </div>
         <div className={cn(style.box_big, style.box)}>
