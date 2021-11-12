@@ -7,10 +7,10 @@ import cn from 'classnames';
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';
 import { Button, BuyInput, BuyModal, Currency, SuccessToast } from 'components';
-import { useBuyModals, useBalance, useUsdtApprove } from 'hooks';
-import { useWalletConnectorContext, WalletService } from 'services';
-import { tokenNames, contracts, is_production } from 'config';
+import { contracts, is_production, tokenNames } from 'config';
+import { useBalance, useBuyModals, useUsdtApprove } from 'hooks';
 import { TNullable } from 'typings';
+import { useWalletConnectorContext, WalletService } from 'services';
 
 import style from './Buy.module.scss';
 

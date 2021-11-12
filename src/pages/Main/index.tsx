@@ -1,24 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import cn from 'classnames';
 
+import { SuccessToast } from 'components';
 import { BuyWrapper, CountdownContainer, CurrentPrice, CurrentRound, Preview } from 'containers';
 import ContractsAddresses from 'containers/ContractsAddresses';
-import {
-  useLimcoreContract,
-  useSaleContract,
-  // useSaleContract
-} from 'hooks';
-import { useWalletConnectorContext } from 'services';
-
+import { useLimcoreContract, useSaleContract } from 'hooks';
+import { Precisions } from 'typings';
 import { getDaysFromSeconds, getDaysLeftUntilEndTime } from './utils';
-
-import style from './main.module.scss';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import { SuccessToast } from 'components';
 import { toBigNumber } from 'utils';
 import { getBalanceAmountBN } from 'utils/bigNumberFormatters';
-import { Precisions } from 'typings';
+import { useWalletConnectorContext } from 'services';
+
+import style from './main.module.scss';
 
 interface IStageData {
   currentStage?: string;
@@ -79,15 +74,16 @@ const useFetchStageData = () => {
 
 const Main: React.FC = () => {
   const { t } = useTranslation();
+  const { address } = useWalletConnectorContext();
   const [currentStage, setCurrentStage] = useState<number>(-1);
   const [endTime, setEndTime] = useState(0);
   const [tokensSold, setTokensSold] = useState('0');
   const [tokensToSell, setTokensToSell] = useState('0');
   const [isPaused, setIsPaused] = useState(false);
+  const [locksBuyTime, setLocksBuyTime] = useState('0');
   const { isContractsExists } = useWalletConnectorContext();
 
   const [price, setPrice] = useState('0');
-
   const [stageUnlockTime, setStageUnlockTime] = useState(0);
 
   const { fetchStageData } = useFetchStageData();
@@ -122,7 +118,7 @@ const Main: React.FC = () => {
     }
   }, [fetchStageData, isContractsExists]);
 
-  const { getStageUnlockTime } = useLimcoreContract();
+  const { getStageUnlockTime, getLocks } = useLimcoreContract();
 
   const fetchStageUnlockTime = useCallback(async () => {
     if (currentStage !== -1) {
@@ -135,9 +131,24 @@ const Main: React.FC = () => {
     }
   }, [currentStage, getStageUnlockTime]);
 
+  const fetchLocks = useCallback(async () => {
+    if (currentStage !== -1 && Boolean(address)) {
+      try {
+        const locks = await getLocks(address, String(currentStage));
+        setLocksBuyTime(locks.buyTime);
+      } catch (e) {
+        console.error('getStageUnlockTime');
+      }
+    }
+  }, [address, currentStage, getLocks]);
+
   useEffect(() => {
     fetchStageUnlockTime();
   }, [fetchStageUnlockTime]);
+
+  useEffect(() => {
+    fetchLocks();
+  }, [fetchLocks]);
 
   useEffect(() => {
     if (isPaused) {
@@ -145,13 +156,18 @@ const Main: React.FC = () => {
     }
   }, [isPaused, t]);
 
-  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(() => getDaysLeftUntilEndTime(endTime), [
-    endTime,
-  ]);
+  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(
+    () => getDaysLeftUntilEndTime(endTime),
+    [endTime],
+  );
 
   const unlockTimeDays = useMemo(() => {
-    return getDaysFromSeconds(stageUnlockTime);
+    return Number(getDaysFromSeconds(stageUnlockTime).toFixed());
   }, [stageUnlockTime]);
+
+  const unlockEndTime = useMemo(() => {
+    return Number(locksBuyTime) + stageUnlockTime;
+  }, [locksBuyTime, stageUnlockTime]);
 
   const priceAsString = useMemo(() => {
     return getBalanceAmountBN(toBigNumber(price)).toFixed(Precisions.fiat);
@@ -177,7 +193,7 @@ const Main: React.FC = () => {
             allTokens={tokensToSellBN}
           />
           <CurrentPrice price={priceAsString} unlockTimeDays={unlockTimeDays} />
-          <CountdownContainer endTime={endTime} />
+          <CountdownContainer startTime={Number(locksBuyTime)} endTime={unlockEndTime} />
         </div>
         <div className={cn(style.box_big, style.box)}>
           <BuyWrapper />

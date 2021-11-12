@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 
 import { Progress } from 'components';
+import { getPercents } from 'utils';
 
 import style from './CurrentRound.module.scss';
-import { getPercents } from 'utils';
 // import { getBalanceAmountBN } from 'utils/bigNumberFormatters';
 
 interface ICurrentRound {
