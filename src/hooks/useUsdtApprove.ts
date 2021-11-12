@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useWalletConnectorContext } from 'services';
-import { tokenNames, contracts, is_production } from 'config';
+import { contracts, is_production, tokenNames } from 'config';
 import { TNullable } from 'typings';
+import { useWalletConnectorContext } from 'services';
 
 export default (
   address: string,

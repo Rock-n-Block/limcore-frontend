@@ -3,8 +3,9 @@
 
 .currency {
   @include flexbox(center, center);
-  cursor: default;
   padding: 12px;
+
+  cursor: default;
 
   border-radius: 14px;
 }

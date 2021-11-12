@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js/bignumber';
+
 import { BIG_TEN } from 'utils';
 
 /**
  * @param amount 1 (`decimals` = 18)
  * @returns 1000000000000000000 (=`amount` * 10 ** `decimals`)
  */
- export const getDecimalAmount = (amount: BigNumber, decimals = 18): BigNumber => {
+export const getDecimalAmount = (amount: BigNumber, decimals = 18): BigNumber => {
   return new BigNumber(amount).times(BIG_TEN.pow(decimals));
 };
 

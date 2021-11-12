@@ -13,9 +13,12 @@ const useContracts = () => {
     [walletService.connectWallet],
   );
 
-  function getContractMethods<T>(contractName: IContractsNames) {
-    return getContract(contractName)?.methods as T | undefined;
-  }
+  const getContractMethods = useCallback(
+    function getContractMethods<T>(contractName: IContractsNames) {
+      return getContract(contractName)?.methods as T | undefined;
+    },
+    [getContract],
+  );
 
   const getContracts = useCallback(
     (contractsNames: IContractsNames[]) => {

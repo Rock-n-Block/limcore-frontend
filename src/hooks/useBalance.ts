@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useWalletConnectorContext, WalletService } from 'services';
 import { tokenNames } from 'config';
+import { useWalletConnectorContext, WalletService } from 'services';
 
 const useBalance = (
   userAddress: string,
