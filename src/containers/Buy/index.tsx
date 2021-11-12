@@ -44,7 +44,8 @@ const Buy: React.FC = () => {
   const [limcBalance, updateLimcBalance] = useBalance(address, tokenNames.LIMC);
   const [usdtBalance, updateUsdtBalance] = useBalance(address, tokenNames.USDT);
 
-  const [tokenAmount, setTokenAmount] = React.useState<TNullable<number | string>>(null);
+  const [usdtAmount, setUsdtAmount] = React.useState<TNullable<number | string>>(null);
+  const [limcAmount, setLimcAmount] = React.useState<TNullable<number | string>>(null);
   const [receiverAddress, setReceiverAddress] = useState<number | string>();
 
   const [limcPrice, setLimcPrice] = React.useState(0);
@@ -54,7 +55,7 @@ const Buy: React.FC = () => {
   const [isPaused, setPaused] = React.useState(true);
 
   const handleBuy = React.useCallback(() => {
-    if (tokenAmount) {
+    if (usdtAmount) {
       handleOpenSendStart();
 
       walletService
@@ -62,7 +63,7 @@ const Buy: React.FC = () => {
           'buy',
           [
             contracts.params[tokenNames.USDT][is_production ? 'mainnet' : 'testnet'].address,
-            WalletService.calcTransactionAmount(tokenAmount, 18),
+            WalletService.calcTransactionAmount(usdtAmount, 18),
             receiverAddress || address,
           ],
           'SALE',
@@ -77,7 +78,8 @@ const Buy: React.FC = () => {
           updateUsdtBalance();
           handleCloseSendEnd();
           toast(<SuccessToast text={t('buy.success')} />);
-          setTokenAmount(null);
+          setUsdtAmount(null);
+          setLimcAmount(null);
         })
         .catch((err: any) => {
           handleCloseSendStart();
@@ -95,7 +97,7 @@ const Buy: React.FC = () => {
     handleCloseSendStart,
     handleOpenSendEnd,
     handleOpenSendRejected,
-    tokenAmount,
+    usdtAmount,
     receiverAddress,
     handleCloseSendEnd,
     walletService,
@@ -103,7 +105,7 @@ const Buy: React.FC = () => {
 
   const { allowance, handleCheckUsdtAllowance, handleApprove, isApproving } = useUsdtApprove(
     address,
-    tokenAmount,
+    usdtAmount,
     handleOpenApproveStart,
     handleCloseApproveStart,
     handleOpenApproveRejected,
@@ -115,9 +117,21 @@ const Buy: React.FC = () => {
     setReceiverAddress(clipboardContent);
   }, []);
 
-  const handleChangeTokenAmount = React.useCallback((value: string | number) => {
-    setTokenAmount(value);
-  }, []);
+  const handleChangeUsdtAmount = React.useCallback(
+    (value: string | number) => {
+      setUsdtAmount(value);
+      setLimcAmount(new BigNumber(value).dividedBy(limcPrice).toFixed(18).toString());
+    },
+    [limcPrice],
+  );
+
+  const handleChangeLimcAmount = React.useCallback(
+    (value: string | number) => {
+      setLimcAmount(value);
+      setUsdtAmount(new BigNumber(value).multipliedBy(limcPrice).toFixed(18).toString());
+    },
+    [limcPrice],
+  );
 
   const handleChangeReceiverAddress = React.useCallback((value: string | number) => {
     setReceiverAddress(value);
@@ -150,13 +164,6 @@ const Buy: React.FC = () => {
       console.log(err, 'get price');
     }
   }, [walletService.connectWallet]);
-
-  const limcAmount = React.useMemo(() => {
-    if (tokenAmount && limcPrice) {
-      return new BigNumber(tokenAmount).dividedBy(limcPrice).toFixed(18).toString();
-    }
-    return 0;
-  }, [tokenAmount, limcPrice]);
 
   const handleGetPause = React.useCallback(async () => {
     try {
@@ -218,14 +225,15 @@ const Buy: React.FC = () => {
         title={t('buy.input1')}
         placeholder="10"
         prefix={<Currency img={UsdtImg} symbol={tokenUsdt.symbol} />}
-        onChange={handleChangeTokenAmount}
-        value={tokenAmount || ''}
+        onChange={handleChangeUsdtAmount}
+        value={usdtAmount || ''}
       />
       <BuyInput
         title={t('buy.input2')}
-        readonly
         prefix={<Currency img={LinkImg} symbol={tokenLimc.symbol} bg="gray" />}
-        value={limcAmount}
+        onChange={handleChangeLimcAmount}
+        placeholder="10"
+        value={limcAmount || ''}
       />
       <BuyInput
         title={t('buy.input3')}
@@ -245,7 +253,7 @@ const Buy: React.FC = () => {
       <Button
         className={cn(style.buyButton, 'text_white', 'text_bold', 'text_upper')}
         onClick={handleSubmit}
-        disabled={!tokenAmount || isPaused || limcAmount > maxTokensValue}
+        disabled={!usdtAmount || !limcAmount || isPaused || limcAmount > maxTokensValue}
         loading={isApproving}
       >
         {t('buy.btn')}
