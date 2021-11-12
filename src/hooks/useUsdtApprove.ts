@@ -10,6 +10,7 @@ export default (
   handleOpenApproveStart: () => void,
   handleCloseApproveStart: () => void,
   handleOpenApproveRejected: () => void,
+  actionAfterApprove: () => void,
 ) => {
   const { walletService } = useWalletConnectorContext();
 
@@ -46,6 +47,7 @@ export default (
       setAllowance(true);
       setApproving(false);
       handleCloseApproveStart();
+      actionAfterApprove();
     } catch (err) {
       setApproving(false);
       handleCloseApproveStart();
@@ -58,6 +60,7 @@ export default (
     walletService,
     address,
     handleCloseApproveStart,
+    actionAfterApprove,
   ]);
 
   return { allowance, handleCheckUsdtAllowance, handleApprove, isApproving };

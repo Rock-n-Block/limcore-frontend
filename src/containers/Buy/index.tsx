@@ -22,7 +22,7 @@ const tokenUsdt = {
 };
 
 const Buy: React.FC = () => {
-  const { address, walletService } = useWalletConnectorContext();
+  const { address, walletService, isContractsExists } = useWalletConnectorContext();
   const { t } = useTranslation();
 
   const [txHash, setTxHash] = React.useState('');
@@ -52,27 +52,6 @@ const Buy: React.FC = () => {
   const [maxTokensValue, setMaxTokensValue] = React.useState(0);
 
   const [isPaused, setPaused] = React.useState(true);
-
-  const { allowance, handleCheckUsdtAllowance, handleApprove, isApproving } = useUsdtApprove(
-    address,
-    tokenAmount,
-    handleOpenApproveStart,
-    handleCloseApproveStart,
-    handleOpenApproveRejected,
-  );
-
-  const handlePaste = React.useCallback(async () => {
-    const clipboardContent = await navigator.clipboard.readText();
-    setReceiverAddress(clipboardContent);
-  }, []);
-
-  const handleChangeTokenAmount = React.useCallback((value: string | number) => {
-    setTokenAmount(value);
-  }, []);
-
-  const handleChangeReceiverAddress = React.useCallback((value: string | number) => {
-    setReceiverAddress(value);
-  }, []);
 
   const handleBuy = React.useCallback(() => {
     if (tokenAmount) {
@@ -121,6 +100,28 @@ const Buy: React.FC = () => {
     handleCloseSendEnd,
     walletService,
   ]);
+
+  const { allowance, handleCheckUsdtAllowance, handleApprove, isApproving } = useUsdtApprove(
+    address,
+    tokenAmount,
+    handleOpenApproveStart,
+    handleCloseApproveStart,
+    handleOpenApproveRejected,
+    handleBuy,
+  );
+
+  const handlePaste = React.useCallback(async () => {
+    const clipboardContent = await navigator.clipboard.readText();
+    setReceiverAddress(clipboardContent);
+  }, []);
+
+  const handleChangeTokenAmount = React.useCallback((value: string | number) => {
+    setTokenAmount(value);
+  }, []);
+
+  const handleChangeReceiverAddress = React.useCallback((value: string | number) => {
+    setReceiverAddress(value);
+  }, []);
 
   const handleSubmit = React.useCallback(() => {
     if (allowance) {
@@ -183,15 +184,21 @@ const Buy: React.FC = () => {
   }, [handleCheckUsdtAllowance]);
 
   React.useEffect(() => {
-    handleGetLimcPrice();
-  }, [handleGetLimcPrice]);
+    if (isContractsExists) {
+      handleGetLimcPrice();
+    }
+  }, [handleGetLimcPrice, isContractsExists]);
   React.useEffect(() => {
-    handleGetMaxTokensValue();
-  }, [handleGetMaxTokensValue]);
+    if (isContractsExists) {
+      handleGetMaxTokensValue();
+    }
+  }, [handleGetMaxTokensValue, isContractsExists]);
 
   React.useEffect(() => {
-    handleGetPause();
-  }, [handleGetPause]);
+    if (isContractsExists) {
+      handleGetPause();
+    }
+  }, [handleGetPause, isContractsExists]);
 
   return (
     <div className={style.buy}>
