@@ -112,11 +112,6 @@ const Buy: React.FC = () => {
     handleBuy,
   );
 
-  const handlePaste = React.useCallback(async () => {
-    const clipboardContent = await navigator.clipboard.readText();
-    setReceiverAddress(clipboardContent);
-  }, []);
-
   const handleChangeUsdtAmount = React.useCallback(
     (value: string | number) => {
       setUsdtAmount(value);
@@ -240,14 +235,6 @@ const Buy: React.FC = () => {
         isNumber={false}
         placeholder="0x0"
         value={receiverAddress}
-        prefix={
-          <Button
-            className={cn(style.pasteButton, 'text_blue', 'text_upper')}
-            onClick={handlePaste}
-          >
-            {t('paste')}
-          </Button>
-        }
         onChange={handleChangeReceiverAddress}
       />
       <Button
