@@ -92,6 +92,8 @@ class Connector extends React.Component<
               this.setState({
                 address: userAccount.address,
               });
+
+              this.state.provider.setAccountAddress(userAccount.address);
             }
           },
           () => {
