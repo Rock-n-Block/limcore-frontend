@@ -49,6 +49,8 @@ const Buy: React.FC = () => {
 
   const [limcPrice, setLimcPrice] = React.useState(0);
 
+  const [maxTokensValue, setMaxTokensValue] = React.useState(0);
+
   const [isPaused, setPaused] = React.useState(true);
 
   const { allowance, handleCheckUsdtAllowance, handleApprove, isApproving } = useUsdtApprove(
@@ -138,6 +140,16 @@ const Buy: React.FC = () => {
     }
   }, [walletService.connectWallet]);
 
+  const handleGetMaxTokensValue = React.useCallback(async () => {
+    try {
+      const result = await walletService.connectWallet.Contract('SALE').methods.toSell().call();
+
+      setMaxTokensValue(+WalletService.weiToEth(result));
+    } catch (err) {
+      console.log(err, 'get price');
+    }
+  }, [walletService.connectWallet]);
+
   const limcAmount = React.useMemo(() => {
     if (tokenAmount && limcPrice) {
       return new BigNumber(tokenAmount).dividedBy(limcPrice).toFixed(18).toString();
@@ -173,6 +185,9 @@ const Buy: React.FC = () => {
   React.useEffect(() => {
     handleGetLimcPrice();
   }, [handleGetLimcPrice]);
+  React.useEffect(() => {
+    handleGetMaxTokensValue();
+  }, [handleGetMaxTokensValue]);
 
   React.useEffect(() => {
     handleGetPause();
@@ -223,7 +238,7 @@ const Buy: React.FC = () => {
       <Button
         className={cn(style.buyButton, 'text_white', 'text_bold', 'text_upper')}
         onClick={handleSubmit}
-        disabled={!tokenAmount || isPaused}
+        disabled={!tokenAmount || isPaused || limcAmount > maxTokensValue}
         loading={isApproving}
       >
         {t('buy.btn')}
