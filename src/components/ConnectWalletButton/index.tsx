@@ -37,9 +37,7 @@ const ConnectWalletButton: React.FC<IConnectWalletButtonProps> = ({ onClick, ...
   return (
     <Dropdown
       trigger="click"
-      overlay={
-        <WalletContainer />
-      }
+      overlay={<WalletContainer />}
       overlayClassName={styles.dropdownBody}
       placement="bottomRight"
     >

@@ -1,6 +1,6 @@
 import { IConnectWallet, IContracts } from 'typings';
 
-import { saleAbi, bep20Abi } from './abi';
+import { bep20Abi, saleAbi } from './abi';
 import { is_production } from './constants';
 
 export * from './constants';
@@ -71,9 +71,17 @@ export enum tokenNames {
   USDT = 'USDT',
 }
 
+export enum ContractsNames {
+  SALE = 'SALE',
+  LIMC = 'LIMC',
+  USDT = 'USDT',
+}
+
+export type IContractsNames = keyof typeof ContractsNames;
+
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
-  names: ['SALE', 'LIMC', 'USDT'],
+  names: Object.keys(ContractsNames),
   decimals: 18,
   params: {
     SALE: {
