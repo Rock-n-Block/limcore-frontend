@@ -8,6 +8,7 @@ import {
   useSaleContract,
   // useSaleContract
 } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 
 import { getDaysFromSeconds, getDaysLeftUntilEndTime } from './utils';
 
@@ -83,6 +84,7 @@ const Main: React.FC = () => {
   const [tokensSold, setTokensSold] = useState('0');
   const [tokensToSell, setTokensToSell] = useState('0');
   const [isPaused, setIsPaused] = useState(false);
+  const { isContractsExists } = useWalletConnectorContext();
 
   const [price, setPrice] = useState('0');
 
@@ -115,8 +117,10 @@ const Main: React.FC = () => {
       }
     };
 
-    fetchData();
-  }, [fetchStageData]);
+    if (isContractsExists) {
+      fetchData();
+    }
+  }, [fetchStageData, isContractsExists]);
 
   const { getStageUnlockTime } = useLimcoreContract();
 
@@ -141,10 +145,9 @@ const Main: React.FC = () => {
     }
   }, [isPaused, t]);
 
-  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(
-    () => getDaysLeftUntilEndTime(endTime),
-    [endTime],
-  );
+  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(() => getDaysLeftUntilEndTime(endTime), [
+    endTime,
+  ]);
 
   const unlockTimeDays = useMemo(() => {
     return getDaysFromSeconds(stageUnlockTime);

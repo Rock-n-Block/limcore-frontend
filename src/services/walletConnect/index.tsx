@@ -16,11 +16,13 @@ const walletConnectorContext = createContext<{
   disconnect: () => void;
   walletService: WalletService;
   address: string;
+  isContractsExists: boolean;
 }>({
   connect: (): void => {},
   disconnect: (): void => {},
   walletService: new WalletService(),
   address: '',
+  isContractsExists: false,
 });
 
 class Connector extends React.Component<
@@ -28,6 +30,7 @@ class Connector extends React.Component<
   {
     provider: WalletService;
     address: string;
+    isContractsExists: boolean;
   }
 > {
   constructor(props: any) {
@@ -36,6 +39,7 @@ class Connector extends React.Component<
     this.state = {
       provider: new WalletService(),
       address: '',
+      isContractsExists: false,
     };
 
     this.connect = this.connect.bind(this);
@@ -43,6 +47,31 @@ class Connector extends React.Component<
   }
 
   componentDidMount() {
+    this.state.provider.connectWallet.initWeb3(
+      is_production
+        ? 'https://bsc-dataseed.binance.org/'
+        : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    );
+    const promises: Array<Promise<any>> = contracts.names.map((contract) => {
+      const { address, abi } = contracts.params[contract][is_production ? 'mainnet' : 'testnet'];
+
+      return this.state.provider.connectWallet.addContract({
+        name: contract,
+        address,
+        abi,
+      });
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        this.setState({
+          isContractsExists: true,
+        });
+      })
+      .catch(() => {
+        this.disconnect();
+      });
+
     if (localStorage.walletconnect) {
       this.connect();
     }
@@ -63,19 +92,6 @@ class Connector extends React.Component<
               this.setState({
                 address: userAccount.address,
               });
-
-              const promises: Array<Promise<any>> = contracts.names.map((contract) => {
-                const { address, abi } =
-                  contracts.params[contract][is_production ? 'mainnet' : 'testnet'];
-
-                return this.state.provider.connectWallet.addContract({
-                  name: contract,
-                  address,
-                  abi,
-                });
-              });
-
-              Promise.all(promises).catch(() => this.disconnect());
             }
           },
           () => {
@@ -109,6 +125,7 @@ class Connector extends React.Component<
           connect: this.connect,
           disconnect: this.disconnect,
           address: this.state.address,
+          isContractsExists: this.state.isContractsExists,
         }}
       >
         {this.props.children}
