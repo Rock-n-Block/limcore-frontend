@@ -1,24 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import cn from 'classnames';
 
+import { SuccessToast } from 'components';
 import { BuyWrapper, CountdownContainer, CurrentPrice, CurrentRound, Preview } from 'containers';
 import ContractsAddresses from 'containers/ContractsAddresses';
-import {
-  useLimcoreContract,
-  useSaleContract,
-  // useSaleContract
-} from 'hooks';
-
+import { useLimcoreContract, useSaleContract } from 'hooks';
+import { Precisions } from 'typings';
 import { getDaysFromSeconds, getDaysLeftUntilEndTime } from './utils';
-
-import style from './main.module.scss';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import { SuccessToast } from 'components';
 import { toBigNumber } from 'utils';
 import { getBalanceAmountBN } from 'utils/bigNumberFormatters';
-import { Precisions } from 'typings';
 import { useWalletConnectorContext } from 'services';
+
+import style from './main.module.scss';
 
 interface IStageData {
   currentStage?: string;
@@ -86,6 +81,7 @@ const Main: React.FC = () => {
   const [tokensToSell, setTokensToSell] = useState('0');
   const [isPaused, setIsPaused] = useState(false);
   const [locksBuyTime, setLocksBuyTime] = useState('0');
+  const { isContractsExists } = useWalletConnectorContext();
 
   const [price, setPrice] = useState('0');
   const [stageUnlockTime, setStageUnlockTime] = useState(0);
@@ -117,8 +113,10 @@ const Main: React.FC = () => {
       }
     };
 
-    fetchData();
-  }, [fetchStageData]);
+    if (isContractsExists) {
+      fetchData();
+    }
+  }, [fetchStageData, isContractsExists]);
 
   const { getStageUnlockTime, getLocks } = useLimcoreContract();
 
@@ -158,16 +156,16 @@ const Main: React.FC = () => {
     }
   }, [isPaused, t]);
 
-  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(() => {
-    return getDaysLeftUntilEndTime(endTime);
-  }, [endTime]);
+  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(
+    () => getDaysLeftUntilEndTime(endTime),
+    [endTime],
+  );
 
   const unlockTimeDays = useMemo(() => {
     return Number(getDaysFromSeconds(stageUnlockTime).toFixed());
   }, [stageUnlockTime]);
 
   const unlockEndTime = useMemo(() => {
-    console.error(locksBuyTime, stageUnlockTime);
     return Number(locksBuyTime) + stageUnlockTime;
   }, [locksBuyTime, stageUnlockTime]);
 

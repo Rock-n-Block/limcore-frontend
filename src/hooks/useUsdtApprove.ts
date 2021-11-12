@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useWalletConnectorContext } from 'services';
-import { tokenNames, contracts, is_production } from 'config';
+import { contracts, is_production, tokenNames } from 'config';
 import { TNullable } from 'typings';
+import { useWalletConnectorContext } from 'services';
 
 export default (
   address: string,
@@ -10,6 +10,7 @@ export default (
   handleOpenApproveStart: () => void,
   handleCloseApproveStart: () => void,
   handleOpenApproveRejected: () => void,
+  actionAfterApprove: () => void,
 ) => {
   const { walletService } = useWalletConnectorContext();
 
@@ -46,6 +47,7 @@ export default (
       setAllowance(true);
       setApproving(false);
       handleCloseApproveStart();
+      actionAfterApprove();
     } catch (err) {
       setApproving(false);
       handleCloseApproveStart();
@@ -58,6 +60,7 @@ export default (
     walletService,
     address,
     handleCloseApproveStart,
+    actionAfterApprove,
   ]);
 
   return { allowance, handleCheckUsdtAllowance, handleApprove, isApproving };
