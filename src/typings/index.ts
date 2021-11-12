@@ -45,3 +45,9 @@ export interface IContracts {
 
 export type TNullable<T> = T | null;
 export type TOptionable<T> = T | undefined;
+
+export enum Precisions {
+  token = 10,
+  shortToken = 4,
+  fiat = 2, // 0.3244 USD = 0.32 USD, 100.1222 RUB = 100.12 RUB
+}

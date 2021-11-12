@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import cn from 'classnames';
 import BigNumber from 'bignumber.js/bignumber';
+import cn from 'classnames';
 
 import LinkImg from 'assets/img/icons/currency/limc.svg';
 import UsdtImg from 'assets/img/icons/currency/usdt.svg';

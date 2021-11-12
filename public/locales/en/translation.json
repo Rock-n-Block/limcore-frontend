@@ -6,11 +6,12 @@
   "round": {
     "text1": "Current stage",
     "text2": "{{days}} days left",
-    "text3": "{{soldTokens}} of {{allTokens}} tokens sold"
+    "text3": "{{soldTokens}} of {{allTokens}} tokens sold",
+    "paused": "Paused"
   },
   "price": {
     "text1": "Current LIMC price",
-    "text2": "Lock-up period is 6 months"
+    "text2": "Lock-up period is {{days}} days"
   },
   "contracts": {
     "title": "Contracts` addresses",
@@ -69,5 +70,6 @@
   },
   "wallet": "Wallet",
   "connected to trust wallet": "Connected to Trust Wallet",
-  "disconnect": "Disconnect"
+  "disconnect": "Disconnect",
+  "stage currently unavailable. paused": "Stage currently unavailable. Paused."
 }

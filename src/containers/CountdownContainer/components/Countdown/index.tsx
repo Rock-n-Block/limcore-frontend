@@ -16,20 +16,28 @@ interface ICountdownCustomClasses extends ICounterBlockCustomClasses {
 
 interface ICountdown extends OptionalClassNameProp {
   startDate: Date;
+  endTime: number; // unix timestamp
+  disabled?: boolean;
   customClasses?: ICountdownCustomClasses;
 }
 
-const Countdown: React.FC<ICountdown> = ({ className, startDate, customClasses = {} }) => {
+const Countdown: React.FC<ICountdown> = ({
+  className,
+  startDate,
+  endTime,
+  disabled = false,
+  customClasses = {},
+}) => {
   const { t } = useTranslation();
   const startUnixTimestamp = React.useCallback(
     () => Math.floor(startDate.getTime() / 1e3),
     [startDate],
   );
-  const endUnixTimestamp = Math.floor(new Date('2021-12-05T00:00:00.000Z').getTime() / 1e3); // Dec 05 2021 00:00:00
 
   const { secondsRemaining } = useCountdownTimer({
     startTime: startUnixTimestamp(),
-    endTime: endUnixTimestamp,
+    endTime,
+    disabled,
   });
 
   const { days, hours, minutes, seconds } = unixToDaysHoursMinutesSeconds(secondsRemaining);

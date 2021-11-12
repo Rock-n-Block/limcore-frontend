@@ -2,15 +2,16 @@
 @import 'styles/typography';
 
 @mixin box($border-color: $accent-neutral) {
-  border: 1px solid $border-color;
-  box-shadow: $box-shadow;
   background-color: $white;
+  border: 1px solid $border-color;
 
   border-radius: 14px;
+  box-shadow: $box-shadow;
 }
 
 .container {
   padding: 20px 20px 30px;
+
   min-width: 340px;
 
   @include box();

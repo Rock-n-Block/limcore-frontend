@@ -6,11 +6,12 @@
   "round": {
     "text1": "Текущий раунд",
     "text2": "{{days}} дней осталось",
-    "text3": "{{soldTokens}} из {{allTokens}} токенов продано"
+    "text3": "{{soldTokens}} из {{allTokens}} токенов продано",
+    "paused": "Приостановлено"
   },
   "price": {
     "text1": "Текущая цена LIMC",
-    "text2": "Lock-up период 6 месяцев"
+    "text2": "Lock-up период {{days}} дней"
   },
   "contracts": {
     "title": "Адреса контрактов",
@@ -69,5 +70,6 @@
   },
   "wallet": "Кошелек",
   "connected to trust wallet": "Подключен к Trust Wallet",
-  "disconnect": "Отключиться"
+  "disconnect": "Отключиться",
+  "stage currently unavailable. paused": "В данное время раунд приостановлен"
 }

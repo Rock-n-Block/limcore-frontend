@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import { is_production, contracts } from 'config';
+import { contracts, is_production } from 'config';
 
 import { WalletService } from '..';
 
@@ -63,12 +63,10 @@ class Connector extends React.Component<
               this.setState({
                 address: userAccount.address,
               });
-              this.state.provider.setAccountAddress(userAccount.address);
 
               const promises: Array<Promise<any>> = contracts.names.map((contract) => {
-                const { address, abi } = contracts.params[contract][
-                  is_production ? 'mainnet' : 'testnet'
-                ];
+                const { address, abi } =
+                  contracts.params[contract][is_production ? 'mainnet' : 'testnet'];
 
                 return this.state.provider.connectWallet.addContract({
                   name: contract,
