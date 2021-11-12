@@ -7,12 +7,14 @@ import Countdown from './components/Countdown';
 import styles from './CountdownContainer.module.scss';
 
 interface ICountdownContainerProps {
+  startTime?: number; // unix
   endTime: number;
 }
 
-const CountdownContainer: React.FC<ICountdownContainerProps> = ({ endTime }) => {
+const CountdownContainer: React.FC<ICountdownContainerProps> = ({ startTime, endTime }) => {
   const { t } = useTranslation();
-  const startDate = new Date();
+
+  const startDate = startTime ? new Date(startTime) : new Date();
 
   return (
     <div className={cn('box', styles.container)}>
@@ -21,7 +23,7 @@ const CountdownContainer: React.FC<ICountdownContainerProps> = ({ endTime }) => 
         className={styles.countdown}
         startDate={startDate}
         endTime={endTime}
-        disabled={endTime === 0}
+        disabled={endTime === 0 || startTime === 0}
       />
     </div>
   );

@@ -5,6 +5,7 @@ import { useContracts } from 'hooks';
 export interface ILimCoreContractViewMethods {
   currentStage: () => any;
   stageUnlockTime: (stageIndex: string) => any;
+  locks: (address: string, stageIndex: string) => any;
 }
 
 const useLimcoreContract = () => {
@@ -24,11 +25,18 @@ const useLimcoreContract = () => {
     [contractMethods],
   );
 
+  const getLocks = useCallback(
+    (address: string, stageIndex: string): Promise<{ amount: string; buyTime: string }> =>
+      contractMethods()?.locks(address, stageIndex).call(),
+    [contractMethods],
+  );
+
   return {
     contractMethods,
 
     getCurrentStage,
     getStageUnlockTime,
+    getLocks,
 
     // TBD ?? а надо ли?
   };
