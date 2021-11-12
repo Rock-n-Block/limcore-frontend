@@ -174,7 +174,7 @@ const Main: React.FC = () => {
             allTokens={tokensToSellBN}
           />
           <CurrentPrice price={priceAsString} unlockTimeDays={unlockTimeDays} />
-          <CountdownContainer />
+          <CountdownContainer endTime={endTime} />
         </div>
         <div className={cn(style.box_big, style.box)}>
           <BuyWrapper />
