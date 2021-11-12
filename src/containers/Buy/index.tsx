@@ -98,7 +98,7 @@ const Buy: React.FC = () => {
           toast(<SuccessToast text={t('buy.success')} />);
           setTokenAmount(null);
         })
-        .catch((err) => {
+        .catch((err: any) => {
           handleCloseSendStart();
           handleCloseSendEnd();
           handleOpenSendRejected();

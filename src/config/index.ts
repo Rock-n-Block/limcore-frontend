@@ -82,7 +82,7 @@ export const contracts: IContracts = {
         abi: saleAbi,
       },
       testnet: {
-        address: '0x50Ff35141A3496d3A34Cda29bF7d0c69D549FfC0',
+        address: '0xf882700Bd5514914A84053064327e51A46c0c54F',
         abi: saleAbi,
       },
     },
@@ -92,7 +92,7 @@ export const contracts: IContracts = {
         abi: bep20Abi,
       },
       testnet: {
-        address: '0xaBAe98D4DFCbdBe65B527A3b33BD035C6ed45052',
+        address: '0xDDd6693Bd94F38689B57b43280850Fb83E61894A',
         abi: bep20Abi,
       },
     },

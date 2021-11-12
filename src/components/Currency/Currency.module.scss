@@ -3,6 +3,7 @@
 
 .currency {
   @include flexbox(center, center);
+  cursor: default;
   padding: 12px;
 
   border-radius: 14px;

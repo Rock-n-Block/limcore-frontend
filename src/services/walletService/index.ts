@@ -22,6 +22,7 @@ export class WalletService {
     return new Promise((resolve) => {
       const { provider, network, settings } = connectWalletConfig(chainName);
 
+      debugger;
       const connecting = this.connectWallet
         .connect(provider[providerName], network, settings)
         .then((connected: boolean | {}) => {
