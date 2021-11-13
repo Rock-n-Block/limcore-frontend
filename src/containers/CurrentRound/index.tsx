@@ -32,9 +32,7 @@ const Timeleft: React.FC<ITimeleftProps> = React.memo(({ paused, endTime }) => {
 
   useEffect(() => {
     if (isRoundEnd) {
-      toast(<SuccessToast text={t('round.ended')} />, {
-        autoClose: false,
-      });
+      toast(<SuccessToast text={t('round.ended')} />);
     }
   }, [isRoundEnd, t]);
 

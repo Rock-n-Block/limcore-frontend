@@ -8,10 +8,7 @@
   margin-left: 14px;
   overflow-wrap: break-word;
   white-space: break-spaces;
-
-  @include b(mobile) {
-    max-width: 220px;
-  }
+  min-width: fit-content;
 }
 
 .img {

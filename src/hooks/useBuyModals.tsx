@@ -139,7 +139,7 @@ const useBuyModals = (txHash: string) => {
         method: t('send'),
         status: 'confirmed',
         title: t('buy.modals.send.confirmed.title'),
-        subtitle: t('buy.modals.send.confirmed.subtitle'),
+        subtitle: <div className="text_center">{t('buy.modals.send.confirmed.subtitle')}</div>,
         isVisible: isSendEnd,
         handleClose: handleCloseSendEnd,
         link: getTxLink(txHash),
