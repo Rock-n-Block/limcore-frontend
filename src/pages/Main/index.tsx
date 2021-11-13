@@ -8,7 +8,7 @@ import { BuyWrapper, CountdownContainer, CurrentPrice, CurrentRound, Preview } f
 import ContractsAddresses from 'containers/ContractsAddresses';
 import { useLimcoreContract, useSaleContract } from 'hooks';
 import { Precisions } from 'typings';
-import { getDaysFromSeconds, getDaysLeftUntilEndTime, toBigNumber } from 'utils';
+import { getDaysFromSeconds, toBigNumber } from 'utils';
 import { getBalanceAmountBN } from 'utils/bigNumberFormatters';
 import { useWalletConnectorContext } from 'services';
 
@@ -75,7 +75,7 @@ const Main: React.FC = () => {
   const { t } = useTranslation();
   const { address } = useWalletConnectorContext();
   const [currentStage, setCurrentStage] = useState<number>(-1);
-  const [endTime, setEndTime] = useState(0);
+  const [endTime, setEndTime] = useState<undefined | number>();
   const [tokensSold, setTokensSold] = useState('0');
   const [tokensToSell, setTokensToSell] = useState('0');
   const [isPaused, setIsPaused] = useState(false);
@@ -155,11 +155,6 @@ const Main: React.FC = () => {
     }
   }, [isPaused, t]);
 
-  const { daysLeft: daysLeftUntilRoundEnd } = useMemo(
-    () => getDaysLeftUntilEndTime(endTime),
-    [endTime],
-  );
-
   const unlockTimeDays = useMemo(() => {
     return Number(getDaysFromSeconds(stageUnlockTime).toFixed());
   }, [stageUnlockTime]);
@@ -190,7 +185,7 @@ const Main: React.FC = () => {
           <CurrentRound
             paused={isPaused}
             stage={currentStage + 1}
-            days={daysLeftUntilRoundEnd}
+            endTime={endTime}
             soldTokens={tokensSoldBN}
             allTokens={tokensToSellBN}
           />

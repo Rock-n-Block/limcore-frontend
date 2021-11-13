@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { useCountdownTimer } from 'hooks';
 import { OptionalClassNameProp } from 'typings';
-import { secondsToDaysHoursMinutesSeconds } from './utils';
+import { secondsToDaysHoursMinutesSeconds } from 'utils';
 
 import CounterBlock, { ICounterBlockCustomClasses } from '../CounterBlock';
 

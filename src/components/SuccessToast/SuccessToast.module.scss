@@ -1,4 +1,4 @@
-@import 'styles/mixins/main.scss';
+@import 'styles/mixins/main';
 
 .stoast {
   @include flexbox(center, flex-start);
@@ -6,6 +6,12 @@
 
 .text {
   margin-left: 14px;
+  overflow-wrap: break-word;
+  white-space: break-spaces;
+
+  @include b(mobile) {
+    max-width: 220px;
+  }
 }
 
 .img {

@@ -47,8 +47,13 @@
     @extend .box;
     padding: 19px 42px 19px 19px;
 
-    width: fit-content;
+    // max-width: fit-content;
+    margin-left: auto;
 
     border-color: $accent-neutral;
+
+    @include b(mobile) {
+      padding-right: 20px;
+    }
   }
 }

@@ -32,14 +32,65 @@ export const getPercents = (
 export const BIG_ZERO = new BigNumber(0);
 export const BIG_TEN = new BigNumber(10);
 
+export const unixToDaysHoursMinutesSeconds = (unixTimestamp: number | null) => {
+  let days = 0;
+  let hours = 0;
+  let minutes = 0;
+  let seconds = 0;
+
+  if (unixTimestamp) {
+    const date = new Date(unixTimestamp * 1e3);
+    days = date.getUTCDate();
+    hours = date.getUTCHours();
+    minutes = date.getUTCMinutes();
+    seconds = date.getUTCSeconds();
+  }
+
+  return {
+    days: String(days).padStart(2, '0'),
+    hours: String(hours).padStart(2, '0'),
+    minutes: String(minutes).padStart(2, '0'),
+    seconds: String(seconds).padStart(2, '0'),
+  };
+};
+
 export const getDaysFromSeconds = (seconds: number): number => {
   return seconds / 60 / 60 / 24;
 };
 
+export const secondsToDaysHoursMinutesSeconds = (secondsRaw: number | null) => {
+  let days = 0;
+  let hours = 0;
+  let minutes = 0;
+  let seconds = 0;
+
+  if (secondsRaw) {
+    days = Math.floor(getDaysFromSeconds(secondsRaw));
+    const secondsAfterDaysLeft = secondsRaw - days * 60 * 60 * 24;
+    hours = Math.floor(secondsAfterDaysLeft / 60 / 60);
+    const secondsAfterHoursLeft = secondsAfterDaysLeft - hours * 60 * 60;
+    minutes = Math.floor(secondsAfterHoursLeft / 60);
+    seconds = secondsRaw % 60;
+  }
+
+  return {
+    days: String(days).padStart(2, '0'),
+    hours: String(hours).padStart(2, '0'),
+    minutes: String(minutes).padStart(2, '0'),
+    seconds: String(seconds).padStart(2, '0'),
+  };
+};
+
+/**
+ * Can be negative (just timestamp1 (date.now) - timestamp2)
+ */
+export const getDiffBetweenStartAndEndTimes = (endTimestamp: number): number =>
+  endTimestamp - Date.now() / 1e3;
+
 export const getDaysLeftUntilEndTime = (
   endTimestamp: number,
 ): { daysLeft: number; daysLeftRaw: number } => {
-  const diffBetweenStartAndEndTimes = endTimestamp - Date.now() / 1e3;
+  const diffBetweenStartAndEndTimes = getDiffBetweenStartAndEndTimes(endTimestamp);
   const daysLeftRaw = Math.floor(getDaysFromSeconds(diffBetweenStartAndEndTimes));
   const daysLeft = daysLeftRaw >= 0 ? daysLeftRaw : 0;
   return {

@@ -5,9 +5,11 @@
   "preview": "Tokens Pre-Sale",
   "round": {
     "text1": "Current stage",
-    "text2": "{{days}} days left",
+    "daysLeft": "{{days}} days left",
     "text3": "{{soldTokens}} of {{allTokens}} tokens sold",
-    "paused": "Paused"
+    "paused": "Paused",
+    "ended": "Stage is ended",
+    "less than day": "Less than 1 day left"
   },
   "price": {
     "text1": "Current LIMC price",
