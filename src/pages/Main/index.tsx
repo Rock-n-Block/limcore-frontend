@@ -40,13 +40,13 @@ const useFetchStageData = () => {
     ];
     const settledPromises = await Promise.allSettled(promises);
 
-    const resolvedData = settledPromises.map((item) => {
+    const resolvedData = settledPromises.map((item, index) => {
       const { status } = item;
 
       switch (status) {
         case 'rejected': {
           const { reason } = item;
-          console.error(reason.message);
+          console.log(reason, `request.method.index = ${index}`);
           return undefined;
         }
         case 'fulfilled':
@@ -79,7 +79,7 @@ const Main: React.FC = () => {
   const [tokensSold, setTokensSold] = useState('0');
   const [tokensToSell, setTokensToSell] = useState('0');
   const [isPaused, setIsPaused] = useState(false);
-  const [locksBuyTime, setLocksBuyTime] = useState('0');
+  const [locksBuyTime, setLocksBuyTime] = useState(0);
   const { isContractsExists } = useWalletConnectorContext();
 
   const [price, setPrice] = useState('0');
@@ -124,8 +124,8 @@ const Main: React.FC = () => {
       try {
         const stageUnlockTimeRaw = await getStageUnlockTime(String(currentStage));
         setStageUnlockTime(Number(stageUnlockTimeRaw));
-      } catch (e) {
-        console.error('getStageUnlockTime');
+      } catch (err) {
+        console.log(err, 'getStageUnlockTime');
       }
     }
   }, [currentStage, getStageUnlockTime]);
@@ -134,9 +134,9 @@ const Main: React.FC = () => {
     if (currentStage !== -1 && Boolean(address)) {
       try {
         const locks = await getLocks(address, String(currentStage));
-        setLocksBuyTime(locks.buyTime);
-      } catch (e) {
-        console.error('getStageUnlockTime');
+        setLocksBuyTime(Number(locks.buyTime));
+      } catch (err) {
+        console.log(err, 'getLocks');
       }
     }
   }, [address, currentStage, getLocks]);
@@ -165,7 +165,7 @@ const Main: React.FC = () => {
   }, [stageUnlockTime]);
 
   const unlockEndTime = useMemo(() => {
-    return Number(locksBuyTime) + stageUnlockTime;
+    return locksBuyTime + stageUnlockTime;
   }, [locksBuyTime, stageUnlockTime]);
 
   const priceAsString = useMemo(() => {
@@ -178,6 +178,9 @@ const Main: React.FC = () => {
   const tokensToSellBN = useMemo(() => {
     return getBalanceAmountBN(toBigNumber(tokensToSell));
   }, [tokensToSell]);
+
+  const hasConnectedWallet = useMemo(() => Boolean(address), [address]);
+  const hasLockedTokens = useMemo(() => Boolean(locksBuyTime), [locksBuyTime]);
 
   return (
     <div className={style.main}>
@@ -192,7 +195,9 @@ const Main: React.FC = () => {
             allTokens={tokensToSellBN}
           />
           <CurrentPrice price={priceAsString} unlockTimeDays={unlockTimeDays} />
-          <CountdownContainer startTime={Number(locksBuyTime)} endTime={unlockEndTime} />
+          {hasConnectedWallet && hasLockedTokens && (
+            <CountdownContainer startTime={locksBuyTime} endTime={unlockEndTime} />
+          )}
         </div>
         <div className={cn(style.box_big, style.box)}>
           <BuyWrapper />
