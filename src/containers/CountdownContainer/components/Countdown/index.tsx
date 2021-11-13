@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { useCountdownTimer } from 'hooks';
 import { OptionalClassNameProp } from 'typings';
-import { unixToDaysHoursMinutesSeconds } from './utils';
+import { secondsToDaysHoursMinutesSeconds } from './utils';
 
 import CounterBlock, { ICounterBlockCustomClasses } from '../CounterBlock';
 
@@ -29,18 +29,18 @@ const Countdown: React.FC<ICountdown> = ({
   customClasses = {},
 }) => {
   const { t } = useTranslation();
-  const startUnixTimestamp = React.useCallback(
+  const startUnixTimestamp = React.useMemo(
     () => Math.floor(startDate.getTime() / 1e3),
     [startDate],
   );
 
   const { secondsRemaining } = useCountdownTimer({
-    startTime: startUnixTimestamp(),
+    startTime: startUnixTimestamp,
     endTime,
     disabled,
   });
 
-  const { days, hours, minutes, seconds } = unixToDaysHoursMinutesSeconds(secondsRemaining);
+  const { days, hours, minutes, seconds } = secondsToDaysHoursMinutesSeconds(secondsRemaining);
   const counterBlocksProps = {
     customClasses: {
       counter: customClasses.counter,
