@@ -57,3 +57,11 @@
     z-index: 1;
   }
 }
+
+.arrowVertical {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease-out;
+  &Active {
+    transform: rotate(360deg);
+  }
+}

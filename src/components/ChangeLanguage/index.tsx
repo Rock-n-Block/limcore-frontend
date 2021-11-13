@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Dropdown from 'rc-dropdown/lib';
@@ -50,9 +50,15 @@ interface IChangeLanguageProps {
 const ChangeLanguage: React.FC<IChangeLanguageProps> = ({ customClasses = {} }) => {
   const { i18n } = useTranslation();
 
+  const [isOpened, setIsOpened] = useState(false);
+
   const onSelect = ({ key }: { key: string }) => {
     // {key:String, item:ReactComponent, domEvent:Event, selectedKeys:String[]}
     i18n.changeLanguage(key);
+  };
+
+  const toggleDropdown = () => {
+    setIsOpened(!isOpened);
   };
 
   return (
@@ -71,6 +77,7 @@ const ChangeLanguage: React.FC<IChangeLanguageProps> = ({ customClasses = {} }) 
           }
           overlayClassName={styles.dropdownBody}
           placement="bottomRight"
+          onVisibleChange={toggleDropdown}
         >
           <div>
             <Button>
@@ -80,7 +87,13 @@ const ChangeLanguage: React.FC<IChangeLanguageProps> = ({ customClasses = {} }) 
                   name={i18n.resolvedLanguage}
                   icon={languages[i18n.resolvedLanguage as ILanguages]}
                 />
-                {ArrowVerticalSvg}
+                <div
+                  className={cn(styles.arrowVertical, {
+                    [styles.arrowVerticalActive]: isOpened,
+                  })}
+                >
+                  {ArrowVerticalSvg}
+                </div>
               </div>
             </Button>
           </div>
