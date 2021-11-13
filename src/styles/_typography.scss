@@ -98,6 +98,10 @@ h3,
   &_md {
     font-size: $font-size-14;
     line-height: 20px;
+    @include b('mobile') {
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 
   // Miscellaneous
