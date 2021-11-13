@@ -20,13 +20,8 @@ interface ICurrentRound {
 const CurrentRound: React.FC<ICurrentRound> = ({ paused, stage, days, soldTokens, allTokens }) => {
   const { t } = useTranslation();
 
-  const soldTokensAsString = useMemo(() => {
-    return soldTokens.toFixed(0);
-  }, [soldTokens]);
-
-  const allTokensAsString = useMemo(() => {
-    return allTokens.toFixed(0);
-  }, [allTokens]);
+  const soldTokensAsString = useMemo(() => soldTokens.toFixed(0), [soldTokens]);
+  const allTokensAsString = useMemo(() => allTokens.toFixed(0), [allTokens]);
 
   const { percents } = getPercents(soldTokens.toNumber(), allTokens.toNumber());
 

@@ -195,9 +195,7 @@ const Main: React.FC = () => {
             allTokens={tokensToSellBN}
           />
           <CurrentPrice price={priceAsString} unlockTimeDays={unlockTimeDays} />
-          {hasConnectedWallet && hasLockedTokens && (
-            <CountdownContainer startTime={locksBuyTime} endTime={unlockEndTime} />
-          )}
+          {hasConnectedWallet && hasLockedTokens && <CountdownContainer endTime={unlockEndTime} />}
         </div>
         <div className={cn(style.box_big, style.box)}>
           <BuyWrapper />
