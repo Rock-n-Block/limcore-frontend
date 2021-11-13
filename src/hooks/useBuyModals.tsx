@@ -118,7 +118,7 @@ const useBuyModals = (txHash: string) => {
         method: t('send'),
         status: 'pending',
         title: t('buy.modals.send.pending.title'),
-        subtitle: t('buy.modals.send.pending.subtitle'),
+        subtitle: <div className="text_center">{t('buy.modals.send.pending.subtitle')}</div>,
         isVisible: isSendStart,
         handleClose: handleCloseSendStart,
       },

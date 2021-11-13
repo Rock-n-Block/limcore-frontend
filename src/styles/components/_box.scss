@@ -46,6 +46,7 @@
   &_toast {
     @extend .box;
     padding: 19px 42px 19px 19px;
+    width: fit-content;
 
     border-color: $accent-neutral;
   }
