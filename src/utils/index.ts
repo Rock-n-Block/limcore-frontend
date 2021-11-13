@@ -31,3 +31,19 @@ export const getPercents = (
 
 export const BIG_ZERO = new BigNumber(0);
 export const BIG_TEN = new BigNumber(10);
+
+export const getDaysFromSeconds = (seconds: number): number => {
+  return seconds / 60 / 60 / 24;
+};
+
+export const getDaysLeftUntilEndTime = (
+  endTimestamp: number,
+): { daysLeft: number; daysLeftRaw: number } => {
+  const diffBetweenStartAndEndTimes = endTimestamp - Date.now() / 1e3;
+  const daysLeftRaw = Math.floor(getDaysFromSeconds(diffBetweenStartAndEndTimes));
+  const daysLeft = daysLeftRaw >= 0 ? daysLeftRaw : 0;
+  return {
+    daysLeft,
+    daysLeftRaw,
+  };
+};

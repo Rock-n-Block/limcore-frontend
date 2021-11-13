@@ -8,8 +8,7 @@ import { BuyWrapper, CountdownContainer, CurrentPrice, CurrentRound, Preview } f
 import ContractsAddresses from 'containers/ContractsAddresses';
 import { useLimcoreContract, useSaleContract } from 'hooks';
 import { Precisions } from 'typings';
-import { getDaysFromSeconds, getDaysLeftUntilEndTime } from './utils';
-import { toBigNumber } from 'utils';
+import { getDaysFromSeconds, getDaysLeftUntilEndTime, toBigNumber } from 'utils';
 import { getBalanceAmountBN } from 'utils/bigNumberFormatters';
 import { useWalletConnectorContext } from 'services';
 

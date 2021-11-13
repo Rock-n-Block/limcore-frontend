@@ -11,22 +11,24 @@ interface ICountdownContainerProps {
   endTime: number;
 }
 
-const CountdownContainer: React.FC<ICountdownContainerProps> = ({ startTime, endTime }) => {
-  const { t } = useTranslation();
+const CountdownContainer: React.FC<ICountdownContainerProps> = React.memo(
+  ({ startTime, endTime }) => {
+    const { t } = useTranslation();
 
-  const startDate = startTime ? new Date(startTime) : new Date();
+    const startDate = startTime ? new Date(startTime * 1e3) : new Date();
 
-  return (
-    <div className={cn('box', styles.container)}>
-      <h3 className={cn(styles.subtitle, 'text_blue text_upper')}>{t('unlock.title')}</h3>
-      <Countdown
-        className={styles.countdown}
-        startDate={startDate}
-        endTime={endTime}
-        disabled={endTime === 0 || startTime === 0}
-      />
-    </div>
-  );
-};
+    return (
+      <div className={cn('box', styles.container)}>
+        <h3 className={cn(styles.subtitle, 'text_blue text_upper')}>{t('unlock.title')}</h3>
+        <Countdown
+          className={styles.countdown}
+          startDate={startDate}
+          endTime={endTime}
+          disabled={endTime === 0 || startTime === 0}
+        />
+      </div>
+    );
+  },
+);
 
 export default CountdownContainer;
