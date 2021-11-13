@@ -24,6 +24,10 @@ $line-height-13: 18px;
   &_14 {
     font-size: $font-size-14;
     line-height: $line-height-14;
+    @include b('mobile') {
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 }
 
