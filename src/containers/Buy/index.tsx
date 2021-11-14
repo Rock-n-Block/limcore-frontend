@@ -21,7 +21,11 @@ const tokenUsdt = {
   symbol: tokenNames.USDT,
 };
 
-const Buy: React.FC = () => {
+interface IBuy {
+  availableTokens: BigNumber;
+}
+
+const Buy: React.FC<IBuy> = ({ availableTokens }) => {
   const { address, walletService, isContractsExists } = useWalletConnectorContext();
   const { t } = useTranslation();
 
@@ -49,8 +53,6 @@ const Buy: React.FC = () => {
   const [receiverAddress, setReceiverAddress] = useState<number | string>();
 
   const [limcPrice, setLimcPrice] = React.useState(0);
-
-  const [maxTokensValue, setMaxTokensValue] = React.useState(0);
 
   const [isPaused, setPaused] = React.useState(true);
 
@@ -150,16 +152,6 @@ const Buy: React.FC = () => {
     }
   }, [walletService.connectWallet]);
 
-  const handleGetMaxTokensValue = React.useCallback(async () => {
-    try {
-      const result = await walletService.connectWallet.Contract('SALE').methods.toSell().call();
-
-      setMaxTokensValue(+WalletService.weiToEth(result));
-    } catch (err) {
-      console.log(err, 'get price');
-    }
-  }, [walletService.connectWallet]);
-
   const handleGetPause = React.useCallback(async () => {
     try {
       const result = await walletService.connectWallet.Contract('SALE').methods.paused().call();
@@ -190,11 +182,6 @@ const Buy: React.FC = () => {
       handleGetLimcPrice();
     }
   }, [handleGetLimcPrice, isContractsExists]);
-  React.useEffect(() => {
-    if (isContractsExists) {
-      handleGetMaxTokensValue();
-    }
-  }, [handleGetMaxTokensValue, isContractsExists]);
 
   React.useEffect(() => {
     if (isContractsExists) {
@@ -244,8 +231,8 @@ const Buy: React.FC = () => {
           !usdtAmount ||
           !limcAmount ||
           isPaused ||
-          limcAmount > maxTokensValue ||
-          +usdtAmount > +usdtBalance
+          !availableTokens.isGreaterThan(limcAmount) ||
+          !new BigNumber(usdtBalance).isGreaterThan(usdtAmount)
         }
         loading={isApproving}
       >

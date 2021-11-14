@@ -170,6 +170,7 @@ const Main: React.FC = () => {
   const tokensSoldBN = useMemo(() => {
     return getBalanceAmountBN(toBigNumber(tokensSold));
   }, [tokensSold]);
+
   const tokensToSellBN = useMemo(() => {
     return getBalanceAmountBN(toBigNumber(tokensToSell));
   }, [tokensToSell]);
@@ -193,7 +194,7 @@ const Main: React.FC = () => {
           {hasConnectedWallet && hasLockedTokens && <CountdownContainer endTime={unlockEndTime} />}
         </div>
         <div className={cn(style.box_big, style.box)}>
-          <BuyWrapper />
+          <BuyWrapper availableTokens={tokensToSellBN.minus(tokensSoldBN)} />
           <ContractsAddresses />
         </div>
       </div>
