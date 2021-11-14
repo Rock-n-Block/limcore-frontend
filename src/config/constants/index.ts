@@ -1,3 +1,3 @@
 export * from './i18n';
 
-export const is_production = false;
+export const is_production = true;
