@@ -245,7 +245,6 @@ const Buy: React.FC = () => {
           !limcAmount ||
           isPaused ||
           limcAmount > maxTokensValue ||
-          +limcAmount > +limcBalance ||
           +usdtAmount > +usdtBalance
         }
         loading={isApproving}
