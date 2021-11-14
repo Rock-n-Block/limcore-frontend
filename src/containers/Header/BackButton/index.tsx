@@ -11,18 +11,21 @@ type IBackButtonProps = OptionalClassNameProp;
 
 const BackButton: React.FC<IBackButtonProps> = ({ className }) => {
   const { t } = useTranslation();
+  const goBack = React.useCallback(() => {
+    window.history.back();
+  }, []);
+
   return (
-    <a href="/">
-      <Button
-        className={className}
-        outline
-        color="primary"
-        prefix={arrowLeftIcon}
-        customClassNames={{ prefix: styles.icon }}
-      >
-        {t('back')}
-      </Button>
-    </a>
+    <Button
+      className={className}
+      outline
+      color="primary"
+      prefix={arrowLeftIcon}
+      customClassNames={{ prefix: styles.icon }}
+      onClick={goBack}
+    >
+      {t('back')}
+    </Button>
   );
 };
 
