@@ -5,7 +5,7 @@
   "preview": "Tokens Pre-Sale",
   "round": {
     "text1": "Current stage",
-    "daysLeft": "{{days}} days left",
+    "text2": "{{days}} days left",
     "text3": "{{soldTokens}} of {{allTokens}} tokens sold",
     "paused": "Paused",
     "ended": "Stage is ended",
