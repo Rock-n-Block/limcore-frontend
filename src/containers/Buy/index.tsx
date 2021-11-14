@@ -240,7 +240,14 @@ const Buy: React.FC = () => {
       <Button
         className={cn(style.buyButton, 'text_white', 'text_bold', 'text_upper')}
         onClick={handleSubmit}
-        disabled={!usdtAmount || !limcAmount || isPaused || limcAmount > maxTokensValue}
+        disabled={
+          !usdtAmount ||
+          !limcAmount ||
+          isPaused ||
+          limcAmount > maxTokensValue ||
+          +limcAmount > +limcBalance ||
+          +usdtAmount > +usdtBalance
+        }
         loading={isApproving}
       >
         {t('buy.btn')}

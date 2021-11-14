@@ -86,7 +86,7 @@ export const contracts: IContracts = {
   params: {
     SALE: {
       mainnet: {
-        address: '',
+        address: '0x45b71c4b18313fb58eed0f55fffac512d704288f',
         abi: saleAbi,
       },
       testnet: {
@@ -96,7 +96,7 @@ export const contracts: IContracts = {
     },
     LIMC: {
       mainnet: {
-        address: '',
+        address: '0x078ca3af061603bd5a1ee2388116daace87244c3',
         abi: bep20Abi,
       },
       testnet: {
@@ -106,7 +106,7 @@ export const contracts: IContracts = {
     },
     USDT: {
       mainnet: {
-        address: '',
+        address: '0x55d398326f99059ff775485246999027b3197955',
         abi: bep20Abi,
       },
       testnet: {
