@@ -53,7 +53,6 @@ const ChangeLanguage: React.FC<IChangeLanguageProps> = ({ customClasses = {} }) 
   const [isOpened, setIsOpened] = useState(false);
 
   const onSelect = ({ key }: { key: string }) => {
-    // {key:String, item:ReactComponent, domEvent:Event, selectedKeys:String[]}
     i18n.changeLanguage(key);
   };
 
